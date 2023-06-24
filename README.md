@@ -2,7 +2,7 @@
 
 ## Getting Started
 
-Run ```Pod install``` in the ios directory
+Run ```pod install``` in the ios directory
 
 Run ```npm install``` in the kokast directory to install packages
 
