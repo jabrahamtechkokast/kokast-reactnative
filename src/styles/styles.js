@@ -20,22 +20,27 @@ export const styles = StyleSheet.create({
         backgroundColor: 'rgba(128, 128, 128, 0.31)',
         flex:1,
         alignItems: "center",
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         bottom:0,
         position:'absolute',
+        flexDirection: 'row',
     },
     inputContainer:{
-      paddingVertical:20,
+      paddingVertical:15,
+      left: 15,
       width:'88%',
       top:9,
     },
     buttonContainer: {
-      flexDirection: 'row',
-      justifyContent: 'center',
-      marginTop: 10,
     },
     button: {
-      marginHorizontal: 5,
+      height: 45,
+      width: 30,
+    },
+    hiddenButton: {
+      //display: 'none',
+      // or
+      opacity: 0,
     },
     inputtext: {
       color: 'white',
