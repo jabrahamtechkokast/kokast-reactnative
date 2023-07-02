@@ -1,33 +1,25 @@
 // created by Jonathan Abraham on May 14th
 // email - jabrahamtech@gmail.com
 
-import {fetchData} from './src/telnet';
+import { fetchData } from './src/telnet';
 
 // import React, {useRef} from 'react';
-import {styles} from './src/styles/styles';
+import { styles } from './src/styles/styles';
 
-import {View, Button, ScrollView, Text} from 'react-native';
+import { View, Button, ScrollView, Text } from 'react-native';
 
-import {InputItem} from './src/components/inputs';
-import {KokastHeader} from './src/components/header.js'
-import {Provider} from 'react-redux';
-import {Store} from './src/redux/store';
-import React from 'react';
+import { InputItem } from './src/components/inputs';
+import { KokastHeader } from './src/components/header.js'
+import { Provider } from 'react-redux';
+import { Store } from './src/redux/store';
+import React, { useState } from 'react';
+import InputCarousel from './src/components/inputCarousel';
 
-const HelpBT = () => {
-  const dataToSend = 'H\r\n';
-
-  const sendDataToTelnet = () => {
-    fetchData(dataToSend);
-  };
-  return (
-    <View>
-      <Button title="Send Request" onPress={sendDataToTelnet} />
-    </View>
-  );
-};
 
 const App = () => {
+  const [inputPageNo, setInputPageNo] = useState(0);
+
+
   return (
     <Provider store={Store}>
       <View style={styles.Container}>
@@ -36,9 +28,7 @@ const App = () => {
         </View>
         <View style={styles.box}>
           <Text style={styles.inputtext}>Inputs</Text>
-          <ScrollView
-            contentContainerStyle={styles.inputContainer}
-            horizontal={true}>
+          <InputCarousel pageNo={inputPageNo} setInputPageNo={setInputPageNo}>
             <InputItem command={undefined} />
             <InputItem command={undefined} />
             <InputItem command={undefined} />
@@ -48,7 +38,7 @@ const App = () => {
             <InputItem command={undefined} />
             <InputItem command={undefined} />
             <InputItem command={undefined} />
-          </ScrollView>
+          </InputCarousel>
         </View>
       </View>
     </Provider>
