@@ -14,6 +14,7 @@ import { Provider } from 'react-redux';
 import { Store } from './src/redux/store';
 import React, { useState } from 'react';
 import InputCarousel from './src/components/inputCarousel';
+import InfinityDisplay from './src/components/screen';
 
 
 const App = () => {
@@ -25,6 +26,8 @@ const App = () => {
       <View style={styles.Container}>
         <View style={styles.headerContainer}>
           <KokastHeader />
+        </View>
+        <View>
         </View>
         <View style={styles.box}>
           <Text style={styles.inputtext}>Inputs</Text>
