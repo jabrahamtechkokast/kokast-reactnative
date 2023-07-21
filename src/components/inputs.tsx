@@ -2,11 +2,14 @@
 // email - jabrahamtech@gmail.com
 
 import React, { Component, useState } from "react";
-import { View, Image, TextInput, StyleSheet, TouchableOpacity, Modal, Text, Keyboard } from "react-native";
+import { View, Image, TextInput, StyleSheet, TouchableOpacity, Modal, Text, Keyboard, Dimensions } from "react-native";
 import { styles } from "../styles/inputStyle";
 import { useSelector, useDispatch } from "react-redux";
 import { setName, setImage } from "../redux/action";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
+const {width, height} = Dimensions.get('window');
 
 type InputItemProps = {
     storageKey: string
