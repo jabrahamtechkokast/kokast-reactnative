@@ -13,6 +13,7 @@ export const styles = StyleSheet.create({
       bottom:0,
       left:0,
       right:0,
+      resizeMode:'contain',
     },
     box: {
         width: boxWidth,
@@ -56,4 +57,11 @@ export const styles = StyleSheet.create({
       width: boxWidth,
       height:boxHeight/4,
     },
+    modeContainer:{
+      position: 'absolute',
+      flex: 1,
+      width: boxWidth,
+      height: boxHeight/2.2,
+      top: boxHeight/1.35,
+    }
   });

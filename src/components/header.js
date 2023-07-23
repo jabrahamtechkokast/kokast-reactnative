@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Image } from 'react-native';
 import { Settings } from './settings';
 import { Dimensions } from 'react-native';
+import Audio from './audio';
 
 const { width, height } = Dimensions.get('window');
 const boxWidth = width;
@@ -17,6 +18,7 @@ export const KokastHeader = () => {
         style={styles.image}
         resizeMode="contain"
       />
+      <Audio/>
     </View>
   );
 };

@@ -1,17 +1,24 @@
-import React from 'react'
-import {StyleSheet, Dimensions, View} from 'react-native';
+import React from 'react';
+import { StyleSheet, Dimensions, View } from 'react-native';
 
-const {width, height} = Dimensions.get('window');
-const screenHeight = height*0.29;
+const { width, height } = Dimensions.get('window');
+const screenHeight = height * 0.29;
 
-export default function OutputScreen(width: number) {
+interface Props {
+  Outputwidth: number;
+}
+
+const OutputScreen: React.FC<Props> = ({ Outputwidth }) => {
   return (
     <View
       style={{
-        width: width,
+        width: Outputwidth,
         height: screenHeight,
-        backgroundColor: 'darkblue', // Replace with your desired background color
+        backgroundColor: 'rgba(255, 255, 255, 0.1)', // Semi-transparent white
+        borderRadius: 10,
       }}
     />
   );
-}
+};
+
+export default OutputScreen;

@@ -15,9 +15,8 @@ import { Provider } from 'react-redux';
 import { Store } from './src/redux/store';
 import React, { useState } from 'react';
 import InputCarousel from './src/components/inputCarousel';
-import InfinityDisplay from './src/components/screen';
-import Output from './src/components/Modes/output';
-import OutputScreen from './src/components/Modes/output';
+import CinematicMode from './src/components/Modes/cinematicMode';
+
 
 
 const App = () => {
@@ -32,12 +31,13 @@ const App = () => {
         <View style={styles.headerContainer}>
           <KokastHeader />
         </View>
-        <View>
+        <View style={styles.modeContainer}>
+          <CinematicMode /> 
         </View>
         <View style={styles.box}>
           <Text style={styles.inputtext}>Inputs</Text>
           <InputCarousel pageNo={inputPageNo} setInputPageNo={setInputPageNo}>
-            <InputItem command={undefined} />
+            <InputItem command={"input"} />
             <InputItem command={undefined} />
             <InputItem command={undefined} />
             <InputItem command={undefined} />
