@@ -16,12 +16,17 @@ import { Store } from './src/redux/store';
 import React, { useState } from 'react';
 import InputCarousel from './src/components/inputCarousel';
 import CinematicMode from './src/components/Modes/cinematicMode';
+import TripleMode from './src/components/Modes/tripleMode';
+import ImmersiveMode from './src/components/Modes/immersiveMode';
+import TvMode from './src/components/Modes/tvMode';
+import OutputCarousel from './src/components/Modes/outputCarousel';
 
 
 
 const App = () => {
   const [inputPageNo, setInputPageNo] = useState(0);
   const {width, height} = Dimensions.get('window');
+  const [outputPageNo, setoutputPageNo] = useState(0);
   
 
 
@@ -32,7 +37,12 @@ const App = () => {
           <KokastHeader />
         </View>
         <View style={styles.modeContainer}>
-          <CinematicMode /> 
+          <OutputCarousel pageNo={outputPageNo} setOutputPageNo={setoutputPageNo}>
+            <CinematicMode/>
+            <TripleMode />
+            <ImmersiveMode />
+            <TvMode />
+          </OutputCarousel> 
         </View>
         <View style={styles.box}>
           <Text style={styles.inputtext}>Inputs</Text>

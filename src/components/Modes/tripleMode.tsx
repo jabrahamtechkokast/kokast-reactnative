@@ -6,14 +6,9 @@ import OutputScreen from './output';
 const { width, height } = Dimensions.get('window');
 const screenWidth = width * 0.88;
 const screenHeight = height * 0.33;
-const outputwidth = screenWidth * 0.7;
+const outputWidth = (screenWidth - 40) / 3; // Three outputs with 10% spacing on each side
 
-interface ButtonProps {
-  text: string;
-  command: string;
-}
-
-const Button: React.FC<ButtonProps> = ({ text, command }) => {
+const Button: React.FC = () => {
   const [isActive, setIsActive] = useState<boolean>(false);
 
   const handlePress = () => {
@@ -29,27 +24,31 @@ const Button: React.FC<ButtonProps> = ({ text, command }) => {
       style={[styles.button, isActive && styles.activeButton]}
       onPress={handlePress}
     >
-      <Text style={styles.buttonText}>{text}</Text>
+      <Text style={styles.buttonText}>Activate</Text>
     </TouchableOpacity>
   );
 };
 
-const CinematicMode: React.FC = () => {
+const TripleMode: React.FC = () => {
   return (
     <View style={styles.container}>
       <InfinityDisplay>
         <View style={styles.outputContainer}>
-          <OutputScreen Outputwidth={outputwidth} />
+          <View style={styles.outputWrapper}>
+            <OutputScreen Outputwidth={outputWidth} />
+          </View>
+          <View style={styles.outputWrapper}>
+            <OutputScreen Outputwidth={outputWidth} />
+          </View>
+          <View style={styles.outputWrapper}>
+            <OutputScreen Outputwidth={outputWidth} />
+          </View>
         </View>
       </InfinityDisplay>
-      <Text style={styles.title}>Cinematic Mode</Text>
+      <Text style={styles.title}>Triple Mode</Text>
       <View style={styles.buttonsContainer}>
         {/* Use the reusable Button component */}
-        <Button text="2:1" command="2:1" />
-        <Button text="2:4:1" command="2:4:1" />
-        <Button text="Activate" command="activate" />
-        <Button text="2:76:1" command="2:76:1" />
-        <Button text="3:6:1" command="3:6:1" />
+        <Button />
       </View>
     </View>
   );
@@ -79,7 +78,6 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     backgroundColor: '#051D5A', // Replace with your desired button background color
     borderRadius: 8,
-    marginHorizontal: 5,
   },
   activeButton: {
     backgroundColor: '#0C4502', // Replace with your desired active button background color
@@ -90,10 +88,16 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   outputContainer: {
-    flex: 1,
+    flexDirection: 'row', // Display outputs side by side
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center', // Center outputs vertically
+  },
+  outputWrapper: {
+    width: outputWidth,
+    marginHorizontal: 5,
+    justifyContent: 'center', // Center outputs vertically
+    alignItems: 'center', // Center outputs horizontally
   },
 });
 
-export default CinematicMode;
+export default TripleMode;

@@ -3,10 +3,9 @@ import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-nati
 import InfinityDisplay from './screen';
 import OutputScreen from './output';
 
-const { width, height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 const screenWidth = width * 0.88;
-const screenHeight = height * 0.33;
-const outputwidth = screenWidth * 0.7;
+const outputWidth = screenWidth * 0.5; // 50% of the screen width
 
 interface ButtonProps {
   text: string;
@@ -34,22 +33,18 @@ const Button: React.FC<ButtonProps> = ({ text, command }) => {
   );
 };
 
-const CinematicMode: React.FC = () => {
+const TvMode: React.FC = () => {
   return (
     <View style={styles.container}>
       <InfinityDisplay>
-        <View style={styles.outputContainer}>
-          <OutputScreen Outputwidth={outputwidth} />
+        <View style={[styles.outputContainer, { width: outputWidth }]}>
+          <OutputScreen Outputwidth={outputWidth} />
         </View>
       </InfinityDisplay>
-      <Text style={styles.title}>Cinematic Mode</Text>
+      <Text style={styles.title}>TV Mode</Text>
       <View style={styles.buttonsContainer}>
         {/* Use the reusable Button component */}
-        <Button text="2:1" command="2:1" />
-        <Button text="2:4:1" command="2:4:1" />
         <Button text="Activate" command="activate" />
-        <Button text="2:76:1" command="2:76:1" />
-        <Button text="3:6:1" command="3:6:1" />
       </View>
     </View>
   );
@@ -96,4 +91,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CinematicMode;
+export default TvMode;
