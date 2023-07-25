@@ -33,7 +33,7 @@ export default function OutputCarousel({
   const isBackVisible = pageNo > 0;
 
   return (
-    <View style={styles.container}>
+    <>
       <TouchableOpacity
         onPress={getPrevPage}
         style={[styles.buttonContainer, !isBackVisible && styles.hiddenButton]}>
@@ -47,7 +47,7 @@ export default function OutputCarousel({
         style={[styles.buttonContainer, !isForwardVisible && styles.hiddenButton]}>
         <Image source={require('../Assets/forwardArrow.png')} style={styles.button} />
       </TouchableOpacity>
-    </View>
+    </>
   );
 }
 
@@ -56,6 +56,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+    flexGrow: 1,
+    minHeight: '100%',
   },
   buttonContainer: {
     paddingHorizontal: 10,
@@ -75,5 +77,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 5, // Add padding to separate from buttons
+    flexGrow:1,
   },
 });

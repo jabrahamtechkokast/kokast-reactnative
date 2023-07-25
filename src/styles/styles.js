@@ -61,7 +61,11 @@ export const styles = StyleSheet.create({
       position: 'absolute',
       flex: 1,
       width: boxWidth,
-      height: boxHeight/2.2,
-      top: boxHeight/1.35,
+      top: boxHeight/4,
+      flex:1,
+      alignItems: "center",
+      justifyContent: 'space-between',
+      position:'absolute',
+      flexDirection: 'row',
     }
   });

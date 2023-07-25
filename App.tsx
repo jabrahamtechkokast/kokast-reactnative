@@ -38,7 +38,7 @@ const App = () => {
         </View>
         <View style={styles.modeContainer}>
           <OutputCarousel pageNo={outputPageNo} setOutputPageNo={setoutputPageNo}>
-            <CinematicMode/>
+            <CinematicMode />
             <TripleMode />
             <ImmersiveMode />
             <TvMode />
