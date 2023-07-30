@@ -38,10 +38,10 @@ export const InputItem = ({storageKey}: InputItemProps) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [selectedMenuItem, setSelectedMenuItem] = useState(null);
 
-    function updateInputData(newString: string, inputKey: keyof InputData){
+    function updateInputData(inputName: string, imageName: ImageName){
         updateData({
-            ...data,
-            [inputKey]: newString
+            inputName,
+            imageName
         });
         setIsMenuOpen(false);
     }
@@ -89,8 +89,7 @@ export const InputItem = ({storageKey}: InputItemProps) => {
                         placeholder="Enter Name"
                         />
                         <TouchableOpacity onPress={() => {
-                            updateInputData(tempName, "inputName");
-                            updateInputData(tempImageName, "imageName");
+                            updateInputData(tempName, tempImageName);
                         }} style={styles.updateButton}>
                             <Text style={styles.updateButtonText}>Update</Text>
                         </TouchableOpacity>
