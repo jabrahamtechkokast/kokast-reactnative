@@ -4,9 +4,7 @@
 import React, { Component, useState } from "react";
 import { View, Image, TextInput, StyleSheet, TouchableOpacity, Modal, Text, Keyboard, Dimensions } from "react-native";
 import { styles } from "../styles/inputStyle";
-import { useSelector, useDispatch } from "react-redux";
-import { setName, setImage } from "../redux/action";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import GenericDataStorage from "../redux/GenericDataStorage";
 
 
 const {width, height} = Dimensions.get('window');
@@ -18,51 +16,35 @@ type InputItemProps = {
 type InputData = {
     inputName: string | undefined,
     imagePath: string | undefined
-} | null | undefined
+}
 
 export const InputItem = ({storageKey}: InputItemProps) => {
-
-    const storeData = async (value: InputData) => {
-        try {
-          const jsonValue = JSON.stringify(value);
-          await AsyncStorage.setItem(storageKey, jsonValue);
-        } catch (e) {
-          // saving error
+    const {data, updateData} = GenericDataStorage<InputData>({
+        dataKey: storageKey,
+        initialData: {
+            inputName: "Ya mother",
+            imagePath: "It's a PICTURE"
         }
-      };
+    });
 
-      async function getData(): Promise<InputData> {
-        try {
-          const jsonValue = await AsyncStorage.getItem(storageKey);
-          return jsonValue != null ? JSON.parse(jsonValue) : null;
-        } catch (e) {
-          // error reading value
-        }
-      };
+    const inputName = data.inputName;
+    const imagePath = data.imagePath;
 
+    const [tempName, setTempName] = useState<string>("");
 
-    const [inputName, setInputName] = useState(async() => (await getData())?.inputName);
-    const [imagePath, setImagePath] = useState();
+    
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [selectedMenuItem, setSelectedMenuItem] = useState(null);
 
-    // const handleImageSelection = (imageSource) =>{
-    //     dispatch(setImage(imageSource));
-    // };
+    function updateInputData(newString: string, inputKey: keyof InputData){
+        updateData({
+            ...data,
+            [inputKey]: newString
+        });
+        setIsMenuOpen(flag => !flag);
+    }
 
-    const handleNameUpdate = async (newName: string) => {
-        const dataToStore: InputData = {
-            inputName: newName,
-            imagePath: imagePath
-        }
 
-        await storeData(dataToStore);
-
-        // await storeData({...dataToStore, 
-        //     [inputName]: inputName
-        // });
-        setIsMenuOpen(false);
-      };
 
     const handleMenuItemSelect = (menuItem: any) => {
         setSelectedMenuItem(menuItem);
@@ -84,12 +66,14 @@ export const InputItem = ({storageKey}: InputItemProps) => {
                 <TouchableOpacity onPress={() => setIsMenuOpen(true)} style={styles.selectionButton}>
                     <Image source={require('./Assets/selectionButton.png')} style={styles.selectionButtonImage} />
                 </TouchableOpacity>
-                {inputName !== "" && (
                     <View style={styles.nameContainer}>
                         <Text style={styles.nameText}>{inputName}</Text>
                     </View>
-        )}
             </View>
+
+
+
+
             <Modal visible={isMenuOpen} animationType="slide" supportedOrientations={['landscape']}>
                 <View style={styles.modalContainer}>
                     {/* <TouchableOpacity onPress={handleCloseModal} style={styles.closeButton}>
@@ -98,13 +82,13 @@ export const InputItem = ({storageKey}: InputItemProps) => {
                     <View style={styles.nameInputContainer}>
                         <TextInput
                         style={styles.nameInput}
-                        value={inputName}
-                        onChangeText={setInputName}
+                        defaultValue={inputName}
+                        onChangeText={(name: string) => setTempName(name)}
                         // onFocus={handleInputFocus}
                         // onBlur={handleInputBlur}                
                         placeholder="Enter Name"
                         />
-                        <TouchableOpacity onPress={handleNameUpdate} style={styles.updateButton}>
+                        <TouchableOpacity onPress={() => updateInputData(tempName, "inputName")} style={styles.updateButton}>
                             <Text style={styles.updateButtonText}>Update</Text>
                         </TouchableOpacity>
                     </View >

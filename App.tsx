@@ -47,15 +47,14 @@ const App = () => {
         <View style={styles.box}>
           <Text style={styles.inputtext}>Inputs</Text>
           <InputCarousel pageNo={inputPageNo} setInputPageNo={setInputPageNo}>
-            <InputItem command={"input"} />
-            <InputItem command={undefined} />
-            <InputItem command={undefined} />
-            <InputItem command={undefined} />
-            <InputItem command={undefined} />
-            <InputItem command={undefined} />
-            <InputItem command={undefined} />
-            <InputItem command={undefined} />
-            <InputItem command={undefined} />
+            <InputItem storageKey={"input1"} />
+            <InputItem storageKey={"input2"} />
+            <InputItem storageKey={"input3"} />
+            <InputItem storageKey={"input4"} />
+            <InputItem storageKey={"input5"} />
+            <InputItem storageKey={"input6"} />
+            <InputItem storageKey={"input7"} />
+            <InputItem storageKey={"input8"} />
           </InputCarousel>
         </View>
       </View>
