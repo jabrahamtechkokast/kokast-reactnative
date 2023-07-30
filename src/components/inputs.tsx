@@ -5,7 +5,8 @@ import React, { Component, useState } from "react";
 import { View, Image, TextInput, StyleSheet, TouchableOpacity, Modal, Text, Keyboard, Dimensions } from "react-native";
 import { styles } from "../styles/inputStyle";
 import GenericDataStorage from "../redux/GenericDataStorage";
-
+import InputImageBackgrounds from "./Assets/InputImages";
+import type { ImageName } from "./Assets/InputImages";
 
 const {width, height} = Dimensions.get('window');
 
@@ -15,7 +16,7 @@ type InputItemProps = {
 
 type InputData = {
     inputName: string | undefined,
-    imagePath: string | undefined
+    imageName: ImageName
 }
 
 export const InputItem = ({storageKey}: InputItemProps) => {
@@ -23,14 +24,15 @@ export const InputItem = ({storageKey}: InputItemProps) => {
         dataKey: storageKey,
         initialData: {
             inputName: "Ya mother",
-            imagePath: "It's a PICTURE"
+            imageName: "Initial Image"
         }
     });
 
     const inputName = data.inputName;
-    const imagePath = data.imagePath;
+    const image = InputImageBackgrounds.GetImage(data.imageName);
 
     const [tempName, setTempName] = useState<string>("");
+    const [tempImageName, setTempImageName] = useState<ImageName>("Initial Image");
 
     
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -41,20 +43,18 @@ export const InputItem = ({storageKey}: InputItemProps) => {
             ...data,
             [inputKey]: newString
         });
-        setIsMenuOpen(flag => !flag);
+        setIsMenuOpen(false);
     }
-
-
 
     const handleMenuItemSelect = (menuItem: any) => {
         setSelectedMenuItem(menuItem);
     };
     
     const getMenuItemStyle = (menuItem: any) => {
-    if (menuItem === selectedMenuItem) {
-        return [styles.menuItem, styles.selectedMenuItem];
-    }
-    return styles.menuItem;
+        if (menuItem === selectedMenuItem) {
+            return [styles.menuItem, styles.selectedMenuItem];
+        }
+        return styles.menuItem;
     };
 
     
@@ -62,7 +62,7 @@ export const InputItem = ({storageKey}: InputItemProps) => {
     return(
         <View>
             <View style={styles.box}>
-                <Image source={require('./Assets/selectionButton.png')} style={styles.image}/>
+                <Image source={image} style={styles.image}/>
                 <TouchableOpacity onPress={() => setIsMenuOpen(true)} style={styles.selectionButton}>
                     <Image source={require('./Assets/selectionButton.png')} style={styles.selectionButtonImage} />
                 </TouchableOpacity>
@@ -88,15 +88,18 @@ export const InputItem = ({storageKey}: InputItemProps) => {
                         // onBlur={handleInputBlur}                
                         placeholder="Enter Name"
                         />
-                        <TouchableOpacity onPress={() => updateInputData(tempName, "inputName")} style={styles.updateButton}>
+                        <TouchableOpacity onPress={() => {
+                            updateInputData(tempName, "inputName");
+                            updateInputData(tempImageName, "imageName");
+                        }} style={styles.updateButton}>
                             <Text style={styles.updateButtonText}>Update</Text>
                         </TouchableOpacity>
                     </View >
                         <TouchableOpacity
                             style={getMenuItemStyle("Apple TV")}
                             onPress={() => {
-                            handleImageSelection(require('./Assets/appleTvLogo.png'));
-                            handleMenuItemSelect("Apple TV");
+                                setTempImageName("Apple TV");
+                                handleMenuItemSelect("Apple TV");
                             }}
                         >
                             <Text>Apple TV</Text>
@@ -104,8 +107,8 @@ export const InputItem = ({storageKey}: InputItemProps) => {
                         <TouchableOpacity
                             style={getMenuItemStyle("Blu Ray Disc Player")}
                             onPress={() => {
-                            handleImageSelection(require('./Assets/blurayIcon.png'));
-                            handleMenuItemSelect("Blu Ray Disc Player");
+                                setTempImageName("Blu-ray");
+                                handleMenuItemSelect("Blu Ray Disc Player");
                             }}
                         >
                             <Text>Blu Ray Disc Player</Text>
@@ -113,8 +116,8 @@ export const InputItem = ({storageKey}: InputItemProps) => {
                         <TouchableOpacity
                             style={getMenuItemStyle("PlayStation")}
                             onPress={() => {
-                            handleImageSelection(require('./Assets/playstationLogo.png'));
-                            handleMenuItemSelect("PlayStation");
+                                setTempImageName("PlayStation");
+                                handleMenuItemSelect("PlayStation");
                             }}
                         >
                             <Text>PlayStation</Text>
@@ -122,8 +125,8 @@ export const InputItem = ({storageKey}: InputItemProps) => {
                         <TouchableOpacity
                             style={getMenuItemStyle("PC")}
                             onPress={() => {
-                            handleImageSelection(require('./Assets/PC.png'));
-                            handleMenuItemSelect("PC");
+                                setTempImageName("PC");
+                                handleMenuItemSelect("PC");
                             }}
                         >
                             <Text>PC</Text>
@@ -131,8 +134,8 @@ export const InputItem = ({storageKey}: InputItemProps) => {
                         <TouchableOpacity
                             style={getMenuItemStyle("Xbox")}
                             onPress={() => {
-                            handleImageSelection(require('./Assets/xbox.png'));
-                            handleMenuItemSelect("Xbox");
+                                setTempImageName("Xbox");
+                                handleMenuItemSelect("Xbox");
                             }}
                         >
                             <Text>Xbox</Text>
@@ -140,8 +143,8 @@ export const InputItem = ({storageKey}: InputItemProps) => {
                         <TouchableOpacity
                             style={getMenuItemStyle("TV")}
                             onPress={() => {
-                            handleImageSelection(require('./Assets/TV.png'));
-                            handleMenuItemSelect("TV");
+                                setTempImageName("TV");
+                                handleMenuItemSelect("TV");
                             }}
                         >
                             <Text>TV</Text>
