@@ -7,6 +7,7 @@ import { styles } from "../styles/inputStyle";
 import GenericDataStorage from "../redux/GenericDataStorage";
 import InputImageBackgrounds from "./Assets/InputImages";
 import type { ImageName } from "./Assets/InputImages";
+import { DraxView } from "react-native-drax";
 
 const {width, height} = Dimensions.get('window');
 
@@ -23,7 +24,7 @@ export const InputItem = ({storageKey}: InputItemProps) => {
     const {data, updateData} = GenericDataStorage<InputData>({
         dataKey: storageKey,
         initialData: {
-            inputName: "Ya mother",
+            inputName: "",
             imageName: "Initial Image"
         }
     });
@@ -61,6 +62,7 @@ export const InputItem = ({storageKey}: InputItemProps) => {
 
     return(
         <View>
+
             <View style={styles.box}>
                 <Image source={image} style={styles.image}/>
                 <TouchableOpacity onPress={() => setIsMenuOpen(true)} style={styles.selectionButton}>
@@ -70,6 +72,7 @@ export const InputItem = ({storageKey}: InputItemProps) => {
                         <Text style={styles.nameText}>{inputName}</Text>
                     </View>
             </View>
+
 
 
 
