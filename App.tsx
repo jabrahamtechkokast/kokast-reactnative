@@ -1,7 +1,6 @@
 // created by Jonathan Abraham on May 14th
 // email - jabrahamtech@gmail.com
 
-import { fetchData } from './src/telnet';
 
 // import React, {useRef} from 'react';
 import { styles } from './src/styles/styles';
@@ -35,7 +34,7 @@ const App = () => {
 
   return (
     <SafeAreaView edges={['top', 'left', 'right']} style={{flex: 1}}>
-      <GestureHandlerRootView style={{ flex: 1 }}>
+      <GestureHandlerRootView style={{ flex: 1}}>
       {
         <View style={styles.Container}>
           <View style={styles.headerContainer}>
@@ -53,14 +52,14 @@ const App = () => {
             <View style={styles.box}>
               <Text style={styles.inputtext}>Inputs</Text>
               <InputCarousel pageNo={inputPageNo} setInputPageNo={setInputPageNo}>
-                <InputItem storageKey={"input1"} />
-                <InputItem storageKey={"input2"} />
-                <InputItem storageKey={"input3"} />
-                <InputItem storageKey={"input4"} />
-                <InputItem storageKey={"input5"} />
-                <InputItem storageKey={"input6"} />
-                <InputItem storageKey={"input7"} />
-                <InputItem storageKey={"input8"} />
+                <InputItem storageKey={"input1"} command={"IN1"}/>
+                <InputItem storageKey={"input2"} command={'IN2'}/>
+                <InputItem storageKey={"input3"} command={'IN3'}/>
+                <InputItem storageKey={"input4"} command={'IN4'}/>
+                <InputItem storageKey={"input5"} command={'IN5'}/>
+                <InputItem storageKey={"input6"} command={'IN6'}/>
+                <InputItem storageKey={"input7"} command={'IN7'}/>
+                <InputItem storageKey={"input8"} command={'IN8'}/>
               </InputCarousel>
             </View>
           </DraxProvider>

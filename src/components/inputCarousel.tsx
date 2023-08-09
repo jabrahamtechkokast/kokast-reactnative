@@ -1,5 +1,5 @@
 import React, { Children, useState } from 'react';
-import { Button, Image, ScrollView, TouchableOpacity } from 'react-native';
+import { Button, Image, ScrollView, Text, TouchableOpacity } from 'react-native';
 import { styles } from '../styles/styles';
 import { DraxProvider, DraxView } from 'react-native-drax';
 
@@ -44,7 +44,6 @@ export default function InputCarousel({
       >
         <Image source={require('./Assets/backArrow.png')} style={styles.button} />
       </TouchableOpacity>
-      <DraxProvider>
         <ScrollView contentContainerStyle={styles.inputContainer} horizontal>
           {renderedInputs.map((item, index) => {
             // Check if the item is a React element before accessing its props
@@ -52,15 +51,10 @@ export default function InputCarousel({
               return (
                 // Wrap each item with DraxView to make them draggable
                 <DraxView
-                  key={index} // Use the index as the key since there's no unique storageKey for each component
-                  payload={item.props.storageKey} // Use storageKey as the payload for identification
-                  onReceiveDragDrop={(event) => {
-                    // Handle when an item is dragged and dropped
-                    console.log('Item dropped:', event.dragged.payload);
-                  }}
-                  // Set draggable to true to make the item draggable
+                  key={item.props.storageKey} // Use the index as the key since there's no unique storageKey for each component
+                  payload={item.props.storageKey}
+                  dragPayload={item.props.command} // Use command as the payload for identification
                   draggable
-                  // Apply opacity change when being dragged
                 >
                   {item}
                 </DraxView>
@@ -69,7 +63,6 @@ export default function InputCarousel({
             return null;
           })}
         </ScrollView>
-      </DraxProvider>
       <TouchableOpacity
         onPress={getNextPage}
         style={[styles.buttonContainer, !isForwardVisible && styles.hiddenButton]}
@@ -79,4 +72,3 @@ export default function InputCarousel({
     </>
   );
 }
-

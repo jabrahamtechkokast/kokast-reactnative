@@ -13,6 +13,7 @@ const {width, height} = Dimensions.get('window');
 
 type InputItemProps = {
     storageKey: string
+    command: string
 }
 
 type InputData = {
@@ -20,7 +21,7 @@ type InputData = {
     imageName: ImageName
 }
 
-export const InputItem = ({storageKey}: InputItemProps) => {
+export const InputItem = ({storageKey, command}: InputItemProps) => {
     const {data, updateData} = GenericDataStorage<InputData>({
         dataKey: storageKey,
         initialData: {

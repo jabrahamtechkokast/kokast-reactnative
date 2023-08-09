@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { TouchableOpacity, Image, StyleSheet, View, Modal, Text, Button, Linking, Dimensions, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native';
 
+
 const { width, height } = Dimensions.get('window');
 const boxWidth = width;
 const boxHeight = height / 2.6;
 
-const isValidIP = (ip) => {
+const isValidIP = (ip: string) => {
   const ipAddressPattern = /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/;
   return ipAddressPattern.test(ip);
 };
@@ -62,16 +63,15 @@ export const Settings = () => {
 
   return (
     <View>
-      <TouchableOpacity
-        style={styles.settingsContainer}
-        onPress={() => setModalVisible(true)}
-      >
-        <Image
-          source={require('./Assets/settings.png')}
-          style={styles.settingsImage}
-          resizeMode="contain"
-        />
-      </TouchableOpacity>
+      <View style={styles.settingsContainer}>
+        <TouchableOpacity onPress={() => setModalVisible(true)}>
+          <Image
+            source={require('./Assets/settings.png')}
+            style={styles.settingsImage}
+            resizeMode="contain"
+          />
+        </TouchableOpacity>
+      </View>
 
       <Modal
         animationType="fade"
@@ -120,6 +120,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 8, // Adjust this value to set the gap from the top edge
     left: 10, // Adjust this value to set the gap from the left edge
+    flex:1,
   },
   settingsImage: {
     width: boxWidth / 7.5,

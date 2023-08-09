@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import InfinityDisplay from './screen';
-import OutputScreen from './output';
+import {OutputScreen} from './output';
 
 const { width, height } = Dimensions.get('window');
 const screenWidth = width * 0.88;

@@ -1,11 +1,16 @@
 import React, { Children, useState } from 'react';
-import { Image, ScrollView, TouchableOpacity, StyleSheet, View } from 'react-native';
+import { Image, ScrollView, TouchableOpacity, StyleSheet, View, Dimensions } from 'react-native';
 
 type OutputCarouselType = {
   children: React.ReactNode[];
   pageNo: number;
   setOutputPageNo: React.Dispatch<React.SetStateAction<number>>;
 };
+
+const { width, height } = Dimensions.get('window');
+const boxWidth = width;
+const boxHeight = height / 2.6;
+const leftPadding = (boxWidth - boxWidth / 7.5) / 2;
 
 const numberOfOutputElementsPerRender: number = 1;
 
@@ -39,7 +44,7 @@ export default function OutputCarousel({
         style={[styles.buttonContainer, !isBackVisible && styles.hiddenButton]}>
         <Image source={require('../Assets/backArrow.png')} style={styles.button} />
       </TouchableOpacity>
-      <ScrollView contentContainerStyle={styles.outputContainer} horizontal>
+      <ScrollView contentContainerStyle={styles.outputContainer} horizontal pagingEnabled>
         {renderedOutputs}
       </ScrollView>
       <TouchableOpacity

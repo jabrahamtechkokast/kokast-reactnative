@@ -20,7 +20,6 @@ export const styles = StyleSheet.create({
       height: 35,
     },
     selectionButton: {
-      position: 'absolute',
       top: 5,
       right: 3,
       padding: 3,
