@@ -61,6 +61,11 @@ export const InputItem = ({storageKey, command}: InputItemProps) => {
         return styles.menuItem;
     };
 
+    const inputPayload = {
+        "command" : command,
+        "image" : image,
+    } 
+
     
 
     return(
@@ -68,7 +73,7 @@ export const InputItem = ({storageKey, command}: InputItemProps) => {
             <DraxView
                 key={storageKey} // Use the index as the key since there's no unique storageKey for each component
                 payload={storageKey}
-                dragPayload={command} // Use command as the payload for identification
+                dragPayload={inputPayload} // Use command as the payload for identification
                 draggable
             >
                 <View style={styles.box}>
