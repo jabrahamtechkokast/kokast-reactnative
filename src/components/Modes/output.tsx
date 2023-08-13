@@ -46,6 +46,7 @@ export const OutputScreen: React.FC<Props> = ({ Outputwidth }) => {
         // Handle the received payload here
         if(dragged && dragged.payload){
           handleReceiveDragDrop(dragged.payload);
+          return DraxSnapbackTargetPreset.None;
         }
       }}
       style={{

@@ -8,6 +8,8 @@ import GenericDataStorage from "../redux/GenericDataStorage";
 import InputImageBackgrounds from "./Assets/InputImages";
 import type { ImageName } from "./Assets/InputImages";
 import { DraxView } from "react-native-drax";
+import { TapGestureHandler, State } from 'react-native-gesture-handler';
+
 
 const {width, height} = Dimensions.get('window');
 
@@ -64,15 +66,25 @@ export const InputItem = ({storageKey, command}: InputItemProps) => {
     return(
         <View>
 
-            <View style={styles.box}>
-                <Image source={image} style={styles.image}/>
-                <TouchableOpacity onPress={() => setIsMenuOpen(true)} style={styles.selectionButton}>
-                    <Image source={require('./Assets/selectionButton.png')} style={styles.selectionButtonImage} />
-                </TouchableOpacity>
+            <TapGestureHandler
+            onHandlerStateChange={({ nativeEvent }) => {
+                if (nativeEvent.state === State.END) {
+                    setIsMenuOpen(true);
+                }
+            }}
+                numberOfTaps={1}
+            >
+                <View style={styles.box}>
+                    <Image source={image} style={styles.image} />
+                    <TouchableOpacity style={styles.selectionButton}>
+                        <Image source={require('./Assets/selectionButton.png')} style={styles.selectionButtonImage} />
+                    </TouchableOpacity>
                     <View style={styles.nameContainer}>
                         <Text style={styles.nameText}>{inputName}</Text>
                     </View>
-            </View>
+                </View>
+            </TapGestureHandler>
+    
 
 
 

@@ -1,7 +1,7 @@
 import React, { Children, useState } from 'react';
 import { Button, Image, ScrollView, Text, TouchableOpacity } from 'react-native';
 import { styles } from '../styles/styles';
-import { DraxProvider, DraxView } from 'react-native-drax';
+import { DraxProvider, DraxSnapbackTargetPreset, DraxView } from 'react-native-drax';
 
 type inputCarouselType = {
   children: React.JSX.Element[];
@@ -54,6 +54,7 @@ export default function InputCarousel({
                   key={item.props.storageKey} // Use the index as the key since there's no unique storageKey for each component
                   payload={item.props.storageKey}
                   dragPayload={item.props.command} // Use command as the payload for identification
+
                   draggable
                 >
                   {item}

@@ -24,6 +24,7 @@ export const styles = StyleSheet.create({
       right: 3,
       padding: 3,
       borderRadius: 5,
+      position: 'absolute',
     },
     selectionButtonImage: {
       width: 16,
