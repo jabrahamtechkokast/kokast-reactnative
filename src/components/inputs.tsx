@@ -65,29 +65,25 @@ export const InputItem = ({storageKey, command}: InputItemProps) => {
 
     return(
         <View>
-
-            <TapGestureHandler
-            onHandlerStateChange={({ nativeEvent }) => {
-                if (nativeEvent.state === State.END) {
-                    setIsMenuOpen(true);
-                }
-            }}
-                numberOfTaps={1}
+            <DraxView
+                key={storageKey} // Use the index as the key since there's no unique storageKey for each component
+                payload={storageKey}
+                dragPayload={command} // Use command as the payload for identification
+                draggable
             >
                 <View style={styles.box}>
                     <Image source={image} style={styles.image} />
-                    <TouchableOpacity style={styles.selectionButton}>
-                        <Image source={require('./Assets/selectionButton.png')} style={styles.selectionButtonImage} />
-                    </TouchableOpacity>
+
                     <View style={styles.nameContainer}>
                         <Text style={styles.nameText}>{inputName}</Text>
                     </View>
                 </View>
-            </TapGestureHandler>
+            </DraxView>
+
+            <TouchableOpacity style={styles.selectionButton} onPressIn={() => setIsMenuOpen(true)}>
+                    <Image source={require('./Assets/selectionButton.png')} style={styles.selectionButtonImage} />
+            </TouchableOpacity>
     
-
-
-
 
 
             <Modal visible={isMenuOpen} animationType="slide" supportedOrientations={['landscape']}>

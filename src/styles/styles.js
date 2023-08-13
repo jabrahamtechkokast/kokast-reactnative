@@ -28,7 +28,9 @@ export const styles = StyleSheet.create({
     },
     inputContainer:{
       paddingVertical:15,
-      left: 15,
+      display: "flex",
+      justifyContent: "space-between",
+      left: width * 0.05,
       width:'88%',
       top:9,
     },

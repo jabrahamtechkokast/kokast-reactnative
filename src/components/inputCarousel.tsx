@@ -45,24 +45,7 @@ export default function InputCarousel({
         <Image source={require('./Assets/backArrow.png')} style={styles.button} />
       </TouchableOpacity>
         <ScrollView contentContainerStyle={styles.inputContainer} horizontal>
-          {renderedInputs.map((item, index) => {
-            // Check if the item is a React element before accessing its props
-            if (React.isValidElement(item)) {
-              return (
-                // Wrap each item with DraxView to make them draggable
-                <DraxView
-                  key={item.props.storageKey} // Use the index as the key since there's no unique storageKey for each component
-                  payload={item.props.storageKey}
-                  dragPayload={item.props.command} // Use command as the payload for identification
-
-                  draggable
-                >
-                  {item}
-                </DraxView>
-              );
-            }
-            return null;
-          })}
+          {renderedInputs}
         </ScrollView>
       <TouchableOpacity
         onPress={getNextPage}

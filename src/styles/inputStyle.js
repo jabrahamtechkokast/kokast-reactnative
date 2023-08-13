@@ -6,14 +6,14 @@ const boxHeight = height/4
 
 export const styles = StyleSheet.create({
     box: {
-      width: boxWidth,
+      width: boxWidth * 0.90,
       height: boxHeight,
       backgroundColor: 'black',
       borderRadius: 10,
       justifyContent: 'center',
       alignItems: 'center',
-      marginBottom: 16, // Move these lines here
-      marginRight: 16, // Move these lines here
+      //paddingBottom: 16, // Move these lines here
+      //paddingRight: 16, // Move these lines here
     },
     image: {
       width: 35.97,
