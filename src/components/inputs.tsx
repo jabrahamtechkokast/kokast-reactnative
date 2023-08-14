@@ -7,7 +7,7 @@ import { styles } from "../styles/inputStyle";
 import GenericDataStorage from "../store/GenericDataStorage";
 import InputImageBackgrounds from "./Assets/InputImages";
 import type { ImageName } from "./Assets/InputImages";
-import type { InputData } from "../store/Types";
+import type { InputData, InputPayload } from "../store/Types";
 import { DraxView } from "react-native-drax";
 
 
@@ -28,7 +28,8 @@ export const InputItem = ({storageKey, command}: InputItemProps) => {
     });
 
     const inputName = data.inputName!;
-    const image = InputImageBackgrounds.GetImage(data.imageName);
+    const imageName = data.imageName;
+    const image = InputImageBackgrounds.GetImage(imageName);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     function updateInputData(inputName: string, imageName: ImageName){
@@ -39,9 +40,9 @@ export const InputItem = ({storageKey, command}: InputItemProps) => {
         setIsMenuOpen(false);
     }
 
-    const inputPayload = {
-        "command" : command,
-        "image" : image,
+    const inputPayload: InputPayload = {
+        command,
+        imageName
     } 
     return(
         <View>

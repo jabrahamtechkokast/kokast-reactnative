@@ -1,50 +1,43 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { StyleSheet, Dimensions, View, Image, Text } from 'react-native';
 import { DraxProvider, DraxView, DraxSnapbackTargetPreset } from 'react-native-drax';
+import InputImageBackgrounds, { ImageName } from '../Assets/InputImages';
+import { OutputGlobalStateContext } from '../../store/OutputContexts';
+import { GlobalOutputState, InputPayload, OutputData } from '../../store/Types';
 
 const { width, height } = Dimensions.get('window');
 const screenHeight = height * 0.29;
 const imageSize = 35; // You can adjust the size of the image here
 
-interface OutputScreenProps {
-  Outputwidth: number;
+type OutputScreenProps = {
+  Outputwidth: number,
+  modeName: keyof GlobalOutputState
 }
 
-export function OutputScreen({ Outputwidth }: OutputScreenProps) {
+export function OutputScreen({ Outputwidth, modeName }: OutputScreenProps) {
+  const {outputDispatch, globalOutputState} = useContext(OutputGlobalStateContext)!;
 
-  const [background, setBackground] = useState('rgba(255, 255, 255, 0.1)');
-  const [image, setImage] = useState(require('../Assets/touch.png'));
+  const outputState: OutputData = globalOutputState[modeName]; 
 
+  const background = outputState.background;
+  const image = InputImageBackgrounds.GetImage(outputState.imageName);
+  const isActive: boolean = outputState.isActive;
+
+  
   // This function will be called when an item is dropped onto the OutputScreen
-  const handleReceiveDragDrop =  (inputPayload: any) => {
+  function handleReceiveDragDrop(inputPayload: InputPayload){
     //console.log(inputPayload.command);
-    setBackground('black');
-    setImage(inputPayload.image);
 
-
-    // Assuming the IP and endpoint are something like this:
-    // const IP_ADDRESS = 'http://192.168.1.1';
-    // const ENDPOINT = '/execute-command';
-
-    // try {
-    //     const response = await fetch(`${IP_ADDRESS}${ENDPOINT}`, {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //         },
-    //         body: JSON.stringify({ command }),
-    //     });
-
-    //     const data = await response.json();
-    //     console.log(data);  // Handle the response as needed
-
-    // } catch (error) {
-    //     console.error('Error sending command:', error);
-    // }
-};
+    outputDispatch({
+      type: "setImage",
+      imageName: inputPayload.imageName as ImageName,
+      modeName,
+    });
+  }
 
   return (
     <DraxView
+      receptive={ true }
       key={background}
       receivingStyle={
         { borderColor: 'blue', borderWidth: 2 }

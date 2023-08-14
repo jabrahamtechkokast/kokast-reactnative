@@ -5,26 +5,29 @@ import { styles } from './src/styles/styles';
 import { View, Text, Dimensions } from 'react-native';
 import { InputItem } from './src/components/inputs';
 import { KokastHeader } from './src/components/header.js'
-import React, { useState } from 'react';
+import React, { createContext, useContext, useReducer, useState } from 'react';
 import InputCarousel from './src/components/inputCarousel';
-import CinematicMode from './src/components/Modes/cinematicMode';
-import TripleMode from './src/components/Modes/tripleMode';
-import ImmersiveMode from './src/components/Modes/immersiveMode';
-import TvMode from './src/components/Modes/tvMode';
-import OutputCarousel from './src/components/Modes/outputCarousel';
+import CinematicMode from './src/components/Modes/CinematicMode';
+import TripleMode from './src/components/Modes/TripleMode';
+import ImmersiveMode from './src/components/Modes/ImmersiveMode';
+import TvMode from './src/components/Modes/TvMode';
+import OutputCarousel from './src/components/Modes/OutputCarousel';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { DraxProvider } from 'react-native-drax';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
+import { GetInitialOutputState, GlobalOutputState, outputGlobalStateReducer } from './src/store/Types';
+import { OutputGlobalStateContext } from './src/store/OutputContexts';
 
 const App = () => {
   const [inputPageNo, setInputPageNo] = useState(0);
   const {width, height} = Dimensions.get('window');
   const [outputPageNo, setoutputPageNo] = useState(0);
   
-
+  const [globalOutputState, outputDispatch] = useReducer(outputGlobalStateReducer, null, GetInitialOutputState)
+  //console.log(JSON.stringify(outputGlobalState));
 
   return (
+    <OutputGlobalStateContext.Provider value={{globalOutputState, outputDispatch}}>
     <SafeAreaView edges={['top', 'left', 'right']} style={{flex: 1}}>
       <GestureHandlerRootView style={{ flex: 1}}>
       {
@@ -59,7 +62,9 @@ const App = () => {
       }
       </GestureHandlerRootView>
     </SafeAreaView>
+    </OutputGlobalStateContext.Provider>
   );
 };
 
 export default App;
+

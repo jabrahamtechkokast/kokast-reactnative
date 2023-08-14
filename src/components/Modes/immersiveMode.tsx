@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import InfinityDisplay from './screen';
-import {OutputScreen} from './output';
+import {OutputScreen} from './OutputScreen';
+import { GlobalOutputState } from '../../store/Types';
 
 const { width, height } = Dimensions.get('window');
 const screenWidth = width * 0.88;
@@ -35,11 +36,14 @@ function Button({ text, command }: ButtonProps){
 };
 
 function ImmersiveMode() {
+
+  const modeName: keyof GlobalOutputState = useMemo(() => "ImmersiveMode", []);
+
   return (
     <View style={styles.container}>
       <InfinityDisplay>
         <View style={[styles.outputContainer, { width: outputWidth }]}>
-          <OutputScreen Outputwidth={outputWidth} />
+          <OutputScreen Outputwidth={outputWidth} modeName={modeName}/>
         </View>
       </InfinityDisplay>
       <Text style={styles.title}>Immersive Mode</Text>

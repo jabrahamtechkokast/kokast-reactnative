@@ -4,7 +4,8 @@ export type ImageName = "Apple TV"
     | "PC"
     | "Xbox"
     | "TV"
-    | "Initial Image";
+    | "Initial Image"
+    | 'Initial Output Image';
 
 type Image = {
     name: ImageName,
@@ -40,6 +41,10 @@ export default class InputImageBackgrounds {
       {
         name: 'Initial Image',
         image: require('./initialImage.png')
+      },
+      {
+        name: 'Initial Output Image',
+        image: require('./touch.png')
       }
     ];
   

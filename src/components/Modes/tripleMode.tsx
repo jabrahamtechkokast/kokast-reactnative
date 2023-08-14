@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import InfinityDisplay from './screen';
-import {OutputScreen} from './output';
+import {OutputScreen} from './OutputScreen';
+import { GlobalOutputState } from '../../store/Types';
 
 const { width, height } = Dimensions.get('window');
 const screenWidth = width * 0.88;
@@ -30,18 +31,22 @@ function Button(){
 };
 
 function TripleMode(){
+  const modeName1: keyof GlobalOutputState = useMemo(() => 'TripleMode1', []);
+  const modeName2: keyof GlobalOutputState = useMemo(() => 'TripleMode2', []);
+  const modeName3: keyof GlobalOutputState = useMemo(() => 'TripleMode3', []);
+
   return (
     <View style={styles.container}>
       <InfinityDisplay>
         <View style={styles.outputContainer}>
           <View style={styles.outputWrapper}>
-            <OutputScreen Outputwidth={outputWidth} />
+            <OutputScreen Outputwidth={outputWidth} modeName={modeName1}/>
           </View>
           <View style={styles.outputWrapper}>
-            <OutputScreen Outputwidth={outputWidth} />
+            <OutputScreen Outputwidth={outputWidth} modeName={modeName2}/>
           </View>
           <View style={styles.outputWrapper}>
-            <OutputScreen Outputwidth={outputWidth} />
+            <OutputScreen Outputwidth={outputWidth} modeName={modeName3}/>
           </View>
         </View>
       </InfinityDisplay>

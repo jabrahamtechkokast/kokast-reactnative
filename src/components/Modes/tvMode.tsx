@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import InfinityDisplay from './screen';
-import {OutputScreen} from './output';
+import {OutputScreen} from './OutputScreen';
+import { GlobalOutputState } from '../../store/Types';
 
 const { width } = Dimensions.get('window');
 const screenWidth = width * 0.88;
@@ -33,12 +34,16 @@ const Button: React.FC<ButtonProps> = ({ text, command }) => {
   );
 };
 
-const TvMode: React.FC = () => {
+function TvMode() {
+
+  const modeName: keyof GlobalOutputState = useMemo(() => 'TvMode', []);
+
+
   return (
     <View style={styles.container}>
       <InfinityDisplay>
         <View style={[styles.outputContainer, { width: outputWidth }]}>
-          <OutputScreen Outputwidth={outputWidth} />
+          <OutputScreen Outputwidth={outputWidth} modeName={modeName} />
         </View>
       </InfinityDisplay>
       <Text style={styles.title}>TV Mode</Text>
