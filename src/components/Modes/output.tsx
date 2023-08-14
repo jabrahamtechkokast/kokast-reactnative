@@ -4,7 +4,7 @@ import { DraxProvider, DraxView, DraxSnapbackTargetPreset } from 'react-native-d
 
 const { width, height } = Dimensions.get('window');
 const screenHeight = height * 0.29;
-const imageSize = 35; // You can adjust the size of the image here
+const imageSize = 45; // You can adjust the size of the image here
 
 interface OutputScreenProps {
   Outputwidth: number;
@@ -14,6 +14,7 @@ export function OutputScreen({ Outputwidth }: OutputScreenProps) {
 
   const [background, setBackground] = useState('rgba(255, 255, 255, 0.1)');
   const [image, setImage] = useState(require('../Assets/touch.png'));
+  const [activeOutput, setActiveOutput] = useState(true);
 
   // This function will be called when an item is dropped onto the OutputScreen
   const handleReceiveDragDrop =  (inputPayload: any) => {
@@ -45,6 +46,7 @@ export function OutputScreen({ Outputwidth }: OutputScreenProps) {
 
   return (
     <DraxView
+      receptive = {activeOutput}
       key={background}
       receivingStyle={
         { borderColor: 'blue', borderWidth: 2 }
