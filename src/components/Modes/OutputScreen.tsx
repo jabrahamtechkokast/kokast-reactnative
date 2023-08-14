@@ -7,7 +7,7 @@ import { GlobalOutputState, InputPayload, OutputData } from '../../store/Types';
 
 const { width, height } = Dimensions.get('window');
 const screenHeight = height * 0.29;
-const imageSize = 35; // You can adjust the size of the image here
+const imageSize = 45; // You can adjust the size of the image here
 
 type OutputScreenProps = {
   Outputwidth: number,
@@ -18,7 +18,6 @@ export function OutputScreen({ Outputwidth, modeName }: OutputScreenProps) {
   const {outputDispatch, globalOutputState} = useContext(OutputGlobalStateContext)!;
 
   const outputState: OutputData = globalOutputState[modeName]; 
-
   const background = outputState.background;
   const image = InputImageBackgrounds.GetImage(outputState.imageName);
   const isActive: boolean = outputState.isActive;
