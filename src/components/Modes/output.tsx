@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Dimensions, View, Image, Text } from 'react-native';
 import { DraxProvider, DraxView, DraxSnapbackTargetPreset } from 'react-native-drax';
 
 const { width, height } = Dimensions.get('window');
 const screenHeight = height * 0.29;
-const imageSize = 25; // You can adjust the size of the image here
+const imageSize = 35; // You can adjust the size of the image here
 
 interface Props {
   Outputwidth: number;
@@ -12,9 +12,15 @@ interface Props {
 
 export const OutputScreen: React.FC<Props> = ({ Outputwidth }) => {
 
+  const [background, setBackground] = useState('rgba(255, 255, 255, 0.1)');
+  const [image, setImage] = useState(require('../Assets/touch.png'));
+
   // This function will be called when an item is dropped onto the OutputScreen
-  const handleReceiveDragDrop =  (command: any) => {
-    console.log(command);
+  const handleReceiveDragDrop =  (inputPayload: any) => {
+    //console.log(inputPayload.command);
+    setBackground('black');
+    setImage(inputPayload.image);
+
 
     // Assuming the IP and endpoint are something like this:
     // const IP_ADDRESS = 'http://192.168.1.1';
@@ -39,6 +45,7 @@ export const OutputScreen: React.FC<Props> = ({ Outputwidth }) => {
 
   return (
     <DraxView
+      key={background}
       receivingStyle={
         { borderColor: 'blue', borderWidth: 2 }
       }
@@ -52,7 +59,7 @@ export const OutputScreen: React.FC<Props> = ({ Outputwidth }) => {
       style={{
         width: Outputwidth,
         height: screenHeight,
-        backgroundColor: 'rgba(255, 255, 255, 0.1)', // Semi-transparent white
+        backgroundColor: background, // Semi-transparent white
         borderRadius: 10,
         justifyContent: 'center',
         alignItems: 'center',
@@ -61,8 +68,14 @@ export const OutputScreen: React.FC<Props> = ({ Outputwidth }) => {
     >
       {/* Add the image */}
       <Image
-        source={require('../Assets/touch.png')}
-        style={{ width: imageSize, height: imageSize, opacity: 0.3 }} // Adjust opacity as desired
+        source={image}
+        style={{width: imageSize,
+          height: imageSize,
+          opacity: 0.3,
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: [{ translateX: -imageSize / 2 }, { translateY: -imageSize / 2 }]}} // Adjust opacity as desired
       />
     </DraxView>
   );
