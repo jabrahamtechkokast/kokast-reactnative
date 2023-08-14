@@ -5,18 +5,19 @@ import { styles } from './src/styles/styles';
 import { View, Text, Dimensions } from 'react-native';
 import { InputItem } from './src/components/inputs';
 import { KokastHeader } from './src/components/header.js'
-import React, { createContext, useContext, useReducer, useState } from 'react';
+import React, { createContext, useContext, useEffect, useReducer, useState } from 'react';
 import InputCarousel from './src/components/inputCarousel';
-import CinematicMode from './src/components/Modes/CinematicMode';
-import TripleMode from './src/components/Modes/TripleMode';
-import ImmersiveMode from './src/components/Modes/ImmersiveMode';
-import TvMode from './src/components/Modes/TvMode';
-import OutputCarousel from './src/components/Modes/OutputCarousel';
+import CinematicMode from './src/components/Modes/cinematicMode';
+import TripleMode from './src/components/Modes/tripleMode';
+import ImmersiveMode from './src/components/Modes/immersiveMode';
+import TvMode from './src/components/Modes/tvMode';
+import OutputCarousel from './src/components/Modes/outputCarousel';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { DraxProvider } from 'react-native-drax';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { GetInitialOutputState, GlobalOutputState, outputGlobalStateReducer } from './src/store/Types';
 import { OutputGlobalStateContext } from './src/store/OutputContexts';
+import SplashScreen from 'react-native-splash-screen';
 
 const App = () => {
   const [inputPageNo, setInputPageNo] = useState(0);
@@ -25,6 +26,14 @@ const App = () => {
   
   const [globalOutputState, outputDispatch] = useReducer(outputGlobalStateReducer, null, GetInitialOutputState)
   //console.log(JSON.stringify(outputGlobalState));
+
+  useEffect(() => {
+    console.log("Hiding splash screen");
+    setTimeout(() => {
+      SplashScreen.hide();
+    }, 4000);
+    
+}, []);
 
   return (
     <OutputGlobalStateContext.Provider value={{globalOutputState, outputDispatch}}>
