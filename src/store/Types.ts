@@ -32,13 +32,18 @@ export type GlobalOutputState = {
     TvMode: OutputData
 }
 
-type SetImage = {
+type SetImageAction = {
     type: "setImage",
     imageName: ImageName,
-    modeName: keyof GlobalOutputState
+    modeName: keyof GlobalOutputState,
 }
 
-export type OutputAction = SetImage;
+type SetActiveAction = {
+    type: "setActive",
+    modeName: keyof GlobalOutputState,
+}
+
+export type OutputAction = SetImageAction | SetActiveAction;
 
 export function outputGlobalStateReducer(currentState: GlobalOutputState, action: OutputAction){
     switch (action.type){
@@ -52,6 +57,16 @@ export function outputGlobalStateReducer(currentState: GlobalOutputState, action
                     background: "black"
                 }
             }
+        }
+        case "setActive": { // set all output screens to default state, then set the selected mode to active
+            const currentActiveOutput: OutputData = currentState[action.modeName];
+            if (currentActiveOutput.isActive){
+                return currentState;
+            }
+
+            const newState: GlobalOutputState = GetInitialOutputState();
+            newState[action.modeName].isActive = true;
+            return newState;
         }
     }
 }

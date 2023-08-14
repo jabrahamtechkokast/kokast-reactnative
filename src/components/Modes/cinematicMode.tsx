@@ -5,32 +5,27 @@ import {OutputScreen} from './OutputScreen';
 import { GlobalOutputState, OutputData } from '../../store/Types';
 import { OutputGlobalStateContext } from '../../store/OutputContexts';
 import { ImageName } from '../Assets/InputImages';
+import ActivateButton from './Buttons/ActivateButton';
 
 const { width, height } = Dimensions.get('window');
 const screenWidth = width * 0.88;
 const screenHeight = height * 0.33;
 const outputwidth = screenWidth * 0.7;
 
-interface ButtonProps {
+interface ActivateButtonProps {
   text: string;
   command: string;
+  isActive?: boolean;
+  onPress?: () => void
 }
 
-function Button({ text, command }: ButtonProps){
-  const [isActive, setIsActive] = useState<boolean>(false);
+function Button({ text, command, isActive, onPress }: ActivateButtonProps){
 
-  const handlePress = () => {
-    setIsActive((prevIsActive) => !prevIsActive);
-    // Perform the fetch command or any other action you want
-    // when the button is pressed with the 'command' prop value.
-    // For example, you can use 'command' to specify the API endpoint to call.
-    // Fetch code or other actions here...
-  };
 
   return (
     <TouchableOpacity
       style={[styles.button, isActive && styles.activeButton]}
-      onPress={handlePress}
+      onPress={onPress}
     >
       <Text style={styles.buttonText}>{text}</Text>
     </TouchableOpacity>
@@ -41,6 +36,13 @@ function CinematicMode(){
   const modeName: keyof GlobalOutputState = useMemo(() => 'CinematicMode', []);
   const {outputDispatch, globalOutputState} = useContext(OutputGlobalStateContext)!;
 
+  const outputState: OutputData = globalOutputState[modeName];
+  const isActiveMode: boolean = outputState.isActive;
+
+  const setActiveMode = () => outputDispatch({
+    type: "setActive",
+    modeName,
+  });
 
   console.log(globalOutputState);
 
@@ -56,7 +58,7 @@ function CinematicMode(){
         {/* Use the reusable Button component */}
         <Button text="2:1" command="2:1" />
         <Button text="2:4:1" command="2:4:1" />
-        <Button text="Activate" command="activate" />
+        <ActivateButton text="Activate" command="activate" onPress={setActiveMode} isActive={isActiveMode}/>
         <Button text="2:76:1" command="2:76:1" />
         <Button text="3:6:1" command="3:6:1" />
       </View>
