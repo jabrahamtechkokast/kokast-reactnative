@@ -11,10 +11,11 @@ const imageSize = 45; // You can adjust the size of the image here
 
 type OutputScreenProps = {
   Outputwidth: number,
-  modeName: keyof GlobalOutputState
+  modeName: keyof GlobalOutputState,
+  receptive: boolean
 }
 
-export function OutputScreen({ Outputwidth, modeName }: OutputScreenProps) {
+export function OutputScreen({ Outputwidth, modeName, receptive }: OutputScreenProps) {
   const {outputDispatch, globalOutputState} = useContext(OutputGlobalStateContext)!;
 
   const outputState: OutputData = globalOutputState[modeName]; 
@@ -36,7 +37,7 @@ export function OutputScreen({ Outputwidth, modeName }: OutputScreenProps) {
 
   return (
     <DraxView
-      receptive={ true }
+      receptive={ receptive }
       key={background}
       receivingStyle={
         { borderColor: 'blue', borderWidth: 2 }

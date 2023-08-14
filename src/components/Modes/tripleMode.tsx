@@ -1,8 +1,10 @@
-import React, { useMemo, useState } from 'react';
+import React, { useContext, useMemo, useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import InfinityDisplay from './screen';
 import {OutputScreen} from './OutputScreen';
-import { GlobalOutputState } from '../../store/Types';
+import { GlobalOutputState, OutputData } from '../../store/Types';
+import { OutputGlobalStateContext } from '../../store/OutputContexts';
+import ActivateButton from './Buttons/ActivateButton';
 
 const { width, height } = Dimensions.get('window');
 const screenWidth = width * 0.88;
@@ -35,25 +37,37 @@ function TripleMode(){
   const modeName2: keyof GlobalOutputState = useMemo(() => 'TripleMode2', []);
   const modeName3: keyof GlobalOutputState = useMemo(() => 'TripleMode3', []);
 
+
+  const {outputDispatch, globalOutputState} = useContext(OutputGlobalStateContext)!;
+  const outputState1: OutputData = globalOutputState[modeName1];
+  const outputState2: OutputData = globalOutputState[modeName2];
+  const outputState3: OutputData = globalOutputState[modeName3];
+  const isActiveMode: boolean = outputState1.isActive;
+
+  const setActiveMode = () => outputDispatch({
+    type: "setActive",
+    modeName: modeName1,
+  });
+
   return (
     <View style={styles.container}>
       <InfinityDisplay>
         <View style={styles.outputContainer}>
           <View style={styles.outputWrapper}>
-            <OutputScreen Outputwidth={outputWidth} modeName={modeName1}/>
+            <OutputScreen Outputwidth={outputWidth} modeName={modeName1} receptive={isActiveMode}/>
           </View>
           <View style={styles.outputWrapper}>
-            <OutputScreen Outputwidth={outputWidth} modeName={modeName2}/>
+            <OutputScreen Outputwidth={outputWidth} modeName={modeName2} receptive={isActiveMode}/>
           </View>
           <View style={styles.outputWrapper}>
-            <OutputScreen Outputwidth={outputWidth} modeName={modeName3}/>
+            <OutputScreen Outputwidth={outputWidth} modeName={modeName3} receptive={isActiveMode}/>
           </View>
         </View>
       </InfinityDisplay>
       <Text style={styles.title}>Triple Mode</Text>
       <View style={styles.buttonsContainer}>
         {/* Use the reusable Button component */}
-        <Button />
+        <ActivateButton text="Activate" command="activate" onPress={setActiveMode} isActive={isActiveMode}/>
       </View>
     </View>
   );

@@ -50,7 +50,7 @@ function CinematicMode(){
     <View style={styles.container}>
       <InfinityDisplay>
         <View style={styles.outputContainer}>
-          <OutputScreen Outputwidth={outputwidth} modeName={modeName}/>
+          <OutputScreen Outputwidth={outputwidth} modeName={modeName} receptive={isActiveMode}/>
         </View>
       </InfinityDisplay>
       <Text style={styles.title}>Cinematic Mode</Text>
