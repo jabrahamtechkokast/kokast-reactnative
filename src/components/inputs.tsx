@@ -4,9 +4,10 @@
 import React, { useState } from "react";
 import { View, Image, TextInput, TouchableOpacity, Modal, Text, Dimensions } from "react-native";
 import { styles } from "../styles/inputStyle";
-import GenericDataStorage from "../redux/GenericDataStorage";
+import GenericDataStorage from "../store/GenericDataStorage";
 import InputImageBackgrounds from "./Assets/InputImages";
 import type { ImageName } from "./Assets/InputImages";
+import type { InputData } from "../store/Types";
 import { DraxView } from "react-native-drax";
 
 
@@ -15,11 +16,6 @@ const {width, height} = Dimensions.get('window');
 type InputItemProps = {
     storageKey: string
     command: string
-}
-
-type InputData = {
-    inputName: string | undefined,
-    imageName: ImageName
 }
 
 export const InputItem = ({storageKey, command}: InputItemProps) => {

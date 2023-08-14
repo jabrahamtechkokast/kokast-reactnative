@@ -13,7 +13,7 @@ interface ButtonProps {
   command: string;
 }
 
-const Button: React.FC<ButtonProps> = ({ text, command }) => {
+function Button({ text, command }: ButtonProps){
   const [isActive, setIsActive] = useState<boolean>(false);
 
   const handlePress = () => {
@@ -34,7 +34,7 @@ const Button: React.FC<ButtonProps> = ({ text, command }) => {
   );
 };
 
-const CinematicMode: React.FC = () => {
+function CinematicMode(){
   return (
     <View style={styles.container}>
       <InfinityDisplay>

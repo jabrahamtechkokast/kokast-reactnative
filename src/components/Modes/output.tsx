@@ -6,11 +6,11 @@ const { width, height } = Dimensions.get('window');
 const screenHeight = height * 0.29;
 const imageSize = 35; // You can adjust the size of the image here
 
-interface Props {
+interface OutputScreenProps {
   Outputwidth: number;
 }
 
-export const OutputScreen: React.FC<Props> = ({ Outputwidth }) => {
+export function OutputScreen({ Outputwidth }: OutputScreenProps) {
 
   const [background, setBackground] = useState('rgba(255, 255, 255, 0.1)');
   const [image, setImage] = useState(require('../Assets/touch.png'));

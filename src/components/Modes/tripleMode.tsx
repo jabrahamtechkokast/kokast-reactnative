@@ -8,7 +8,7 @@ const screenWidth = width * 0.88;
 const screenHeight = height * 0.33;
 const outputWidth = (screenWidth - 40) / 3; // Three outputs with 10% spacing on each side
 
-const Button: React.FC = () => {
+function Button(){
   const [isActive, setIsActive] = useState<boolean>(false);
 
   const handlePress = () => {
@@ -29,7 +29,7 @@ const Button: React.FC = () => {
   );
 };
 
-const TripleMode: React.FC = () => {
+function TripleMode(){
   return (
     <View style={styles.container}>
       <InfinityDisplay>
