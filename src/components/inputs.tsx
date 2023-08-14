@@ -1,14 +1,13 @@
 // created by Jonathan Abraham on May 14th
 // email - jabrahamtech@gmail.com
 
-import React, { Component, useState } from "react";
-import { View, Image, TextInput, StyleSheet, TouchableOpacity, Modal, Text, Keyboard, Dimensions } from "react-native";
+import React, { useState } from "react";
+import { View, Image, TextInput, TouchableOpacity, Modal, Text, Dimensions } from "react-native";
 import { styles } from "../styles/inputStyle";
 import GenericDataStorage from "../redux/GenericDataStorage";
 import InputImageBackgrounds from "./Assets/InputImages";
 import type { ImageName } from "./Assets/InputImages";
 import { DraxView } from "react-native-drax";
-import { TapGestureHandler, State } from 'react-native-gesture-handler';
 
 
 const {width, height} = Dimensions.get('window');
@@ -32,15 +31,9 @@ export const InputItem = ({storageKey, command}: InputItemProps) => {
         }
     });
 
-    const inputName = data.inputName;
+    const inputName = data.inputName!;
     const image = InputImageBackgrounds.GetImage(data.imageName);
-
-    const [tempName, setTempName] = useState<string>("");
-    const [tempImageName, setTempImageName] = useState<ImageName>("Initial Image");
-
-    
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [selectedMenuItem, setSelectedMenuItem] = useState(null);
 
     function updateInputData(inputName: string, imageName: ImageName){
         updateData({
@@ -49,19 +42,6 @@ export const InputItem = ({storageKey, command}: InputItemProps) => {
         });
         setIsMenuOpen(false);
     }
-
-    const handleMenuItemSelect = (menuItem: any) => {
-        setSelectedMenuItem(menuItem);
-    };
-    
-    const getMenuItemStyle = (menuItem: any) => {
-        if (menuItem === selectedMenuItem) {
-            return [styles.menuItem, styles.selectedMenuItem];
-        }
-        return styles.menuItem;
-    };
-
-    
 
     return(
         <View>
@@ -84,20 +64,53 @@ export const InputItem = ({storageKey, command}: InputItemProps) => {
                     <Image source={require('./Assets/selectionButton.png')} style={styles.selectionButtonImage} />
             </TouchableOpacity>
     
+        
+        {isMenuOpen && 
+                <InputSettingsModal
+                inputName={inputName}
+                imageName={data.imageName}
+                updateInputData={updateInputData}
+            />
+        }
+            
+        </View>
+    )
+}
 
+type InputSettingsModalProps = {
+    inputName: string,
+    imageName: ImageName,
+    updateInputData: (inputName: string, imageName: ImageName) => void,
+}
 
-            <Modal visible={isMenuOpen} animationType="slide" supportedOrientations={['landscape']}>
+function InputSettingsModal({
+        inputName,
+        imageName,
+        updateInputData,
+    }: InputSettingsModalProps){
+    
+    const [tempName, setTempName] = useState<string>(inputName);
+    const [tempImageName, setTempImageName] = useState<ImageName>(imageName);
+
+    const handleMenuItemSelect = (menuItem: ImageName) => {
+        setTempImageName(menuItem);
+    };
+
+    const getMenuItemStyle = (menuItem: ImageName) => {
+        if (menuItem === tempImageName) {
+            return [styles.menuItem, styles.selectedMenuItem];
+        }
+        return styles.menuItem;
+    };
+
+    return (
+        <Modal animationType="slide" supportedOrientations={['landscape']}>
                 <View style={styles.modalContainer}>
-                    {/* <TouchableOpacity onPress={handleCloseModal} style={styles.closeButton}>
-                        <Text style={styles.closeButtonText}>X</Text>
-                    </TouchableOpacity> */}
                     <View style={styles.nameInputContainer}>
                         <TextInput
                         style={styles.nameInput}
                         defaultValue={inputName}
-                        onChangeText={(name: string) => setTempName(name)}
-                        // onFocus={handleInputFocus}
-                        // onBlur={handleInputBlur}                
+                        onChangeText={(name: string) => setTempName(name)}          
                         placeholder="Enter Name"
                         />
                         <TouchableOpacity onPress={() => {
@@ -116,10 +129,10 @@ export const InputItem = ({storageKey, command}: InputItemProps) => {
                             <Text>Apple TV</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
-                            style={getMenuItemStyle("Blu Ray Disc Player")}
+                            style={getMenuItemStyle("Blu-ray")}
                             onPress={() => {
                                 setTempImageName("Blu-ray");
-                                handleMenuItemSelect("Blu Ray Disc Player");
+                                handleMenuItemSelect("Blu-ray");
                             }}
                         >
                             <Text>Blu Ray Disc Player</Text>
@@ -163,8 +176,5 @@ export const InputItem = ({storageKey, command}: InputItemProps) => {
                     
                 </View>
             </Modal>
-        </View>
-    )
+    );
 }
-
-

@@ -1,17 +1,10 @@
 // created by Jonathan Abraham on May 14th
 // email - jabrahamtech@gmail.com
 
-
-// import React, {useRef} from 'react';
 import { styles } from './src/styles/styles';
-
-
-import { View, Button, ScrollView, Text, Dimensions } from 'react-native';
-
+import { View, Text, Dimensions } from 'react-native';
 import { InputItem } from './src/components/inputs';
 import { KokastHeader } from './src/components/header.js'
-import { Provider } from 'react-redux';
-import { Store } from './src/redux/store';
 import React, { useState } from 'react';
 import InputCarousel from './src/components/inputCarousel';
 import CinematicMode from './src/components/Modes/cinematicMode';
@@ -22,7 +15,6 @@ import OutputCarousel from './src/components/Modes/outputCarousel';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { DraxProvider } from 'react-native-drax';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
 
 
 const App = () => {
