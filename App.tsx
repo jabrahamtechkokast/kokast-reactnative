@@ -28,7 +28,6 @@ const App = () => {
   //console.log(JSON.stringify(outputGlobalState));
 
   useEffect(() => {
-    console.log("Hiding splash screen");
     setTimeout(() => {
       SplashScreen.hide();
     }, 4000);
