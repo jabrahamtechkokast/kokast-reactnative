@@ -1,8 +1,10 @@
-import React, { useMemo, useState } from 'react';
+import React, { useContext, useMemo, useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import InfinityDisplay from './screen';
 import {OutputScreen} from './OutputScreen';
-import { GlobalOutputState } from '../../store/Types';
+import { GlobalOutputState, OutputData } from '../../store/Types';
+import { OutputGlobalStateContext } from '../../store/OutputContexts';
+import ActivateButton from './Buttons/ActivateButton';
 
 const { width, height } = Dimensions.get('window');
 const screenWidth = width * 0.88;
@@ -38,19 +40,28 @@ function Button({ text, command }: ButtonProps){
 function ImmersiveMode() {
 
   const modeName: keyof GlobalOutputState = useMemo(() => "ImmersiveMode", []);
+  const {outputDispatch, globalOutputState} = useContext(OutputGlobalStateContext)!;
+
+  const outputState: OutputData = globalOutputState[modeName];
+  const isActiveMode: boolean = outputState.isActive;
+
+  const setActiveMode = () => outputDispatch({
+    type: "setActive",
+    modeName,
+  });
 
   return (
     <View style={styles.container}>
       <InfinityDisplay>
         <View style={[styles.outputContainer, { width: outputWidth }]}>
-          <OutputScreen Outputwidth={outputWidth} modeName={modeName}/>
+          <OutputScreen Outputwidth={outputWidth} modeName={modeName} receptive={isActiveMode}/>
         </View>
       </InfinityDisplay>
       <Text style={styles.title}>Immersive Mode</Text>
       <View style={styles.buttonsContainer}>
         {/* Use the reusable Button component */}
         <Button text="PC Resolution" command="pc_resolution" />
-        <Button text="Activate" command="activate" />
+        <ActivateButton text="Activate" command="activate" onPress={setActiveMode} isActive={isActiveMode}/>
         <Button text="Standard" command="standard" />
       </View>
     </View>
