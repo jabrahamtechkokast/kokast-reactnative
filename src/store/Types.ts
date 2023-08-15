@@ -43,11 +43,12 @@ type SetActiveAction = {
     modeName: keyof GlobalOutputState,
 }
 
-type SelectSettingAction = {
+export type SelectSettingAction = {
     type: "selectSetting",
-    modeName: keyof GlobalOutputState & ("CinematicMode" | "ImmersiveMode"),
+    modeName: SelectSettingModeNames,
     setting: CinematicModeSetting | ImmersiveModeSetting,
 }
+export type SelectSettingModeNames = keyof GlobalOutputState & ("CinematicMode" | "ImmersiveMode");
 
 export type CinematicModeSetting = "2:1" | "2:4:1" | "2:76:1" | "3:6:1";
 
