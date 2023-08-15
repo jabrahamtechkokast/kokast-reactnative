@@ -10,7 +10,7 @@ export type InputPayload = {
 
 export type InputData = {
     inputName: string | undefined,
-    imageName: ImageName
+    imageName: ImageName,
 };
 
 export type OutputData = {
@@ -20,16 +20,16 @@ export type OutputData = {
 }
 
 export type OutputSetting = {
-    setting: string
+    setting: string,
 }
 
 export type GlobalOutputState = {
-    CinematicMode: OutputData,
-    ImmersiveMode: OutputData,
+    CinematicMode: OutputData & {setting?: CinematicModeSetting},
+    ImmersiveMode: OutputData & {setting?: ImmersiveModeSetting},
     TripleMode1: OutputData,
     TripleMode2: OutputData,
     TripleMode3: OutputData,
-    TvMode: OutputData
+    TvMode: OutputData,
 }
 
 type SetImageAction = {
@@ -43,7 +43,17 @@ type SetActiveAction = {
     modeName: keyof GlobalOutputState,
 }
 
-export type OutputAction = SetImageAction | SetActiveAction;
+type SelectSettingAction = {
+    type: "selectSetting",
+    modeName: keyof GlobalOutputState & ("CinematicMode" | "ImmersiveMode"),
+    setting: CinematicModeSetting | ImmersiveModeSetting,
+}
+
+export type CinematicModeSetting = "2:1" | "2:4:1" | "2:76:1" | "3:6:1";
+
+export type ImmersiveModeSetting = "PC Resolution" | "Standard";
+
+export type OutputAction = SetImageAction | SetActiveAction | SelectSettingAction;
 
 export function outputGlobalStateReducer(currentState: GlobalOutputState, action: OutputAction){
     switch (action.type){
@@ -58,15 +68,24 @@ export function outputGlobalStateReducer(currentState: GlobalOutputState, action
                 }
             }
         }
-        case "setActive": { // set all output screens to default state, then set the selected mode to active
+        case "setActive": {
             const currentActiveOutput: OutputData = currentState[action.modeName];
             if (currentActiveOutput.isActive){
                 return currentState;
             }
-
+            // set all output screens to default state, then set the selected mode to active
             const newState: GlobalOutputState = GetInitialOutputState();
             newState[action.modeName].isActive = true;
             return newState;
+        }
+        case "selectSetting": {
+            const currentOutput = currentState[action.modeName];
+            const updatedOutput = { ...currentOutput, setting: action.setting };
+
+            return {
+                ...currentState,
+                [action.modeName]: { ...updatedOutput }
+            }
         }
     }
 }
@@ -77,7 +96,7 @@ export function GetInitialOutputState(): GlobalOutputState{
         CinematicMode: {
             imageName: "Initial Output Image",
             background: opaqueBackground,
-            isActive: false,
+            isActive: false
         },
         ImmersiveMode: {
             imageName: "Initial Output Image",

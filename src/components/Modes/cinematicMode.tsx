@@ -4,33 +4,13 @@ import InfinityDisplay from './screen';
 import {OutputScreen} from './OutputScreen';
 import { GlobalOutputState, OutputData } from '../../store/Types';
 import { OutputGlobalStateContext } from '../../store/OutputContexts';
-import { ImageName } from '../Assets/InputImages';
 import ActivateButton from './Buttons/ActivateButton';
+import ModeSettingsButton from './Buttons/ModeSettingsButton';
 
 const { width, height } = Dimensions.get('window');
 const screenWidth = width * 0.88;
 const screenHeight = height * 0.33;
 const outputwidth = screenWidth * 0.7;
-
-interface ActivateButtonProps {
-  text: string;
-  command: string;
-  isActive?: boolean;
-  onPress?: () => void
-}
-
-function Button({ text, command, isActive, onPress }: ActivateButtonProps){
-
-
-  return (
-    <TouchableOpacity
-      style={[styles.button, isActive && styles.activeButton]}
-      onPress={onPress}
-    >
-      <Text style={styles.buttonText}>{text}</Text>
-    </TouchableOpacity>
-  );
-};
 
 function CinematicMode(){
   const modeName: keyof GlobalOutputState = useMemo(() => 'CinematicMode', []);
@@ -56,15 +36,54 @@ function CinematicMode(){
       <Text style={styles.title}>Cinematic Mode</Text>
       <View style={styles.buttonsContainer}>
         {/* Use the reusable Button component */}
-        <Button text="2:1" command="2:1" />
-        <Button text="2:4:1" command="2:4:1" />
+        {/* TODO: Create object that holds all the commands */}
+        <ModeSettingsButton setting='2:1' command='TBD' modeName={modeName}/>
+        <ModeSettingsButton setting='2:4:1' command='TBD' modeName={modeName}/>
         <ActivateButton text="Activate" command="activate" onPress={setActiveMode} isActive={isActiveMode}/>
-        <Button text="2:76:1" command="2:76:1" />
-        <Button text="3:6:1" command="3:6:1" />
+        <ModeSettingsButton setting='2:76:1' command='TBD' modeName={modeName}/>
+        <ModeSettingsButton setting='3:6:1' command='TBD' modeName={modeName}/>
       </View>
     </View>
   );
 };
+
+// type ModeSettingsButtonProps = {
+//   setting: CinematicModeSetting | ImmersiveModeSetting,
+//   command: string,
+//   modeName: SelectSettingModeNames
+// }
+
+// function ModeSettingsButton({setting, command, modeName}: ModeSettingsButtonProps){
+//   const {outputDispatch, globalOutputState} = useContext(OutputGlobalStateContext)!;
+
+//   const outputState = globalOutputState[modeName];
+//   const isActiveButton = outputState['setting'] === setting;
+//   const isActiveMode = outputState.isActive;
+
+//   const onPress = () => {
+//     if (!isActiveMode){
+//       return;
+//     }
+
+//     const dispatchAction: SelectSettingAction = {
+//       type: "selectSetting",
+//       modeName,
+//       setting
+//     };
+//     outputDispatch(dispatchAction);
+
+//     // TODO: fire some event: e.g. fireCommand(command)
+//   }
+
+//   return (
+//     <TouchableOpacity
+//     style={[styles.button, isActiveButton && styles.activeButton]}
+//     onPress={onPress}
+//     >
+//       <Text style={styles.buttonText}>{setting}</Text>
+//     </TouchableOpacity>
+//   );
+// }
 
 const styles = StyleSheet.create({
   container: {
