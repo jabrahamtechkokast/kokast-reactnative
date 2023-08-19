@@ -67,7 +67,7 @@ function TripleMode(){
       <Text style={styles.title}>Triple Mode</Text>
       <View style={styles.buttonsContainer}>
         {/* Use the reusable Button component */}
-        <ActivateButton text="Activate" command="activate" onPress={setActiveMode} isActive={isActiveMode}/>
+        <ActivateButton text="Activate" command="SET OUT0 VCPM0 \r\n" onPress={setActiveMode} isActive={isActiveMode}/>
       </View>
     </View>
   );

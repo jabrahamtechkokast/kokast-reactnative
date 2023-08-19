@@ -4,6 +4,7 @@ import { DraxProvider, DraxView, DraxSnapbackTargetPreset } from 'react-native-d
 import InputImageBackgrounds, { ImageName } from '../Assets/InputImages';
 import { OutputGlobalStateContext } from '../../store/OutputContexts';
 import { GlobalOutputState, InputPayload, OutputData } from '../../store/Types';
+import sendTelnetCommand from "../telnet";
 
 const { width, height } = Dimensions.get('window');
 const screenHeight = height * 0.29;
@@ -22,11 +23,14 @@ export function OutputScreen({ Outputwidth, modeName, receptive }: OutputScreenP
   const background = outputState.background;
   const image = InputImageBackgrounds.GetImage(outputState.imageName);
   const isActive: boolean = outputState.isActive;
+  const prefixCommand = outputState.prefixCommand;
 
   
   // This function will be called when an item is dropped onto the OutputScreen
   function handleReceiveDragDrop(inputPayload: InputPayload){
-    //console.log(inputPayload.command);
+    const cmd = `${prefixCommand}${inputPayload.command} \r\n`;
+    sendTelnetCommand(cmd);
+
 
     outputDispatch({
       type: "setImage",

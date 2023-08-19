@@ -17,6 +17,7 @@ export type OutputData = {
     imageName: ImageName,
     background: string,
     isActive: boolean,
+    prefixCommand: string,
 }
 
 export type OutputSetting = {
@@ -97,32 +98,38 @@ export function GetInitialOutputState(): GlobalOutputState{
         CinematicMode: {
             imageName: "Initial Output Image",
             background: opaqueBackground,
-            isActive: false
+            isActive: false,
+            prefixCommand:'SET OUT0 VS ',
         },
         ImmersiveMode: {
             imageName: "Initial Output Image",
             background: opaqueBackground,
             isActive: false,
+            prefixCommand:'SET OUT0 VS ',
         },
         TripleMode1: {
             imageName: "Initial Output Image",
             background: opaqueBackground,
             isActive: false,
+            prefixCommand:'SET OUT1 VS ',
         },
         TripleMode2: {
             imageName: "Initial Output Image",
             background: opaqueBackground,
             isActive: false,
+            prefixCommand:'SET OUT2 VS ',
         },
         TripleMode3: {
             imageName: "Initial Output Image",
             background: opaqueBackground,
             isActive: false,
+            prefixCommand:'SET OUT3 VS ',
         },
         TvMode: {
             imageName: "Initial Output Image",
             background: opaqueBackground,
             isActive: false,
+            prefixCommand:'SET OUT2 VS ',
         },
     }
 }

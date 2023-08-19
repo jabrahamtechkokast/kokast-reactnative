@@ -18,6 +18,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { GetInitialOutputState, GlobalOutputState, outputGlobalStateReducer } from './src/store/Types';
 import { OutputGlobalStateContext } from './src/store/OutputContexts';
 import SplashScreen from 'react-native-splash-screen';
+import GenericDataStorage from './src/store/GenericDataStorage';
 
 const App = () => {
   const [inputPageNo, setInputPageNo] = useState(0);
@@ -26,6 +27,7 @@ const App = () => {
   
   const [globalOutputState, outputDispatch] = useReducer(outputGlobalStateReducer, null, GetInitialOutputState)
   //console.log(JSON.stringify(outputGlobalState));
+
 
   useEffect(() => {
     setTimeout(() => {

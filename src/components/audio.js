@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { TouchableOpacity, Image, StyleSheet, View, Dimensions, Modal, Text } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
+import sendTelnetCommand from './telnet';
 
 const { width, height } = Dimensions.get('window');
 const boxWidth = width;
@@ -13,27 +14,43 @@ export const Audio = () => {
   const [selectedHeadphoneTwo, setSelectedHeadphoneTwo] = useState();
   const [selectedHeadphoneThree, setSelectedHeadphoneThree] = useState();
   const [isActivated, setIsActivated] = useState(false);
+  const [isDropdownEnabled, setIsDropdownEnabled] = useState(false);
 
   const sendCommand = (command) => {
     console.log(command);
     if (command === 'ACTIVATE') {
       setIsActivated(true);
+      setIsDropdownEnabled(true);
+      sendTelnetCommand('SET OUT0 EXA EN \r\n')
     } else if (command === 'DEACTIVATE') {
       setIsActivated(false);
+      setIsDropdownEnabled(false);
+      resetDropdowns();
+      sendTelnetCommand('SET OUT1 EXA DIS \r\n SET OUT2 EXA DIS \r\n SET OUT3 EXA DIS \r\n')
     }
+    
+  };
+
+  const resetDropdowns = () => {
+    setSelectedMain(null);
+    setSelectedHeadphoneOne(null);
+    setSelectedHeadphoneTwo(null);
+    setSelectedHeadphoneThree(null);
   };
 
   const handleDropdownChange = (commandPrefix, itemValue) => {
+    const cmd = `${commandPrefix}${itemValue} \r\n`;
     if (itemValue) {
-      console.log(`${commandPrefix}${itemValue}`);
+      console.log(cmd);
+      sendTelnetCommand(cmd);
     }
   };
 
   const dropdowns = [
-    { label: 'Main', value: selectedMain, setter: setSelectedMain, commandPrefix: 'MAIN_' },
-    { label: 'Headphone One', value: selectedHeadphoneOne, setter: setSelectedHeadphoneOne, commandPrefix: 'HP1_' },
-    { label: 'Headphone Two', value: selectedHeadphoneTwo, setter: setSelectedHeadphoneTwo, commandPrefix: 'HP2_' },
-    { label: 'Headphone Three', value: selectedHeadphoneThree, setter: setSelectedHeadphoneThree, commandPrefix: 'HP3_' },
+    { label: 'Main', value: selectedMain, setter: setSelectedMain, commandPrefix: 'SET OUT0 EXA EN\r\n SET OUT0 AS' },
+    { label: 'Headphone One', value: selectedHeadphoneOne, setter: setSelectedHeadphoneOne, commandPrefix: 'SET OUT1 EXA EN\r\n SET OUT1 AS' },
+    { label: 'Headphone Two', value: selectedHeadphoneTwo, setter: setSelectedHeadphoneTwo, commandPrefix: 'SET OUT2 EXA EN\r\n SET OUT2 AS' },
+    { label: 'Headphone Three', value: selectedHeadphoneThree, setter: setSelectedHeadphoneThree, commandPrefix: 'SET OUT3 EXA EN\r\n SET OUT3 AS' },
   ];
 
   return (
@@ -83,6 +100,7 @@ export const Audio = () => {
               <View key={index} style={styles.dropdown}>
                 <Text style={styles.dropdownLabel}>{dropdown.label}</Text>
                 <Picker
+                  enabled={isDropdownEnabled}
                   selectedValue={dropdown.value}
                   onValueChange={(itemValue) => {
                     dropdown.setter(itemValue);
@@ -93,7 +111,7 @@ export const Audio = () => {
                 >
                   <Picker.Item label="None" value={null} />
                   {[...Array(8)].map((_, i) => (
-                    <Picker.Item key={i} label={`Input ${i + 1}`} value={`Input ${i + 1}`} />
+                    <Picker.Item key={i} label={` Input ${i + 1}`} value={` IN${i + 1}`} />
                   ))}
                 </Picker>
               </View>
@@ -104,8 +122,6 @@ export const Audio = () => {
     </View>
   );
 };
-
-// ... (The beginning of the code remains unchanged)
 
 const styles = StyleSheet.create({
   modalView: {
@@ -135,13 +151,13 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: '60%',  // Reduced width to bring buttons closer
+    width: '60%',
     marginBottom: 20,
   },
   commandButton: {
-    flex: 0.45,  // Reduced the flex size to make the buttons smaller
-    padding: 6,  // Adjusted padding
-    margin: 3,   // Reduced margin to bring buttons closer
+    flex: 0.45,
+    padding: 6,
+    margin: 3,
     borderRadius: 5,
     justifyContent: 'center',
     alignItems: 'center',
@@ -167,7 +183,7 @@ const styles = StyleSheet.create({
   dropdownLabel: {
     color: 'white',
     marginBottom: 5,
-    fontSize: 18  // Reduced font size for the headings
+    fontSize: 18
   },
   pickerStyle: {
     height: 40,
@@ -201,4 +217,3 @@ const styles = StyleSheet.create({
 });
 
 export default Audio;
-

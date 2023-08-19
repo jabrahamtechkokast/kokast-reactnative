@@ -1,5 +1,7 @@
+import { getOwnPropertyDescriptors } from "immer/dist/internal";
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import sendTelnetCommand from "../../telnet";
 
 interface ActivateButtonProps {
     text: string;
@@ -7,12 +9,20 @@ interface ActivateButtonProps {
     isActive?: boolean;
     onPress?: () => void
   }
+
+
   
  export default function ActivateButton({ text, command, isActive, onPress }: ActivateButtonProps){
+    
+    const handlePress = () => {
+      sendTelnetCommand(command);
+      onPress && onPress();
+    }
+    
     return (
       <TouchableOpacity
         style={[styles.button, isActive && styles.activeButton]}
-        onPress={onPress}
+        onPress={handlePress}
       >
         <Text style={styles.buttonText}>{text}</Text>
       </TouchableOpacity>

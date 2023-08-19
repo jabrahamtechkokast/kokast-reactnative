@@ -6,6 +6,7 @@ import { GlobalOutputState, OutputData } from '../../store/Types';
 import { OutputGlobalStateContext } from '../../store/OutputContexts';
 import ActivateButton from './Buttons/ActivateButton';
 import ModeSettingsButton from './Buttons/ModeSettingsButton';
+import sendTelnetCommand from '../telnet';
 
 const { width, height } = Dimensions.get('window');
 const screenWidth = width * 0.88;
@@ -24,7 +25,6 @@ function CinematicMode(){
     modeName,
   });
 
-  console.log(globalOutputState);
 
   return (
     <View style={styles.container}>
@@ -39,7 +39,7 @@ function CinematicMode(){
         {/* TODO: Create object that holds all the commands */}
         <ModeSettingsButton setting='2:1' command='TBD' modeName={modeName}/>
         <ModeSettingsButton setting='2:4:1' command='TBD' modeName={modeName}/>
-        <ActivateButton text="Activate" command="activate" onPress={setActiveMode} isActive={isActiveMode}/>
+        <ActivateButton text="Activate" command="SET OUT0 VCPM2 \r\n" onPress={setActiveMode} isActive={isActiveMode}/>
         <ModeSettingsButton setting='2:76:1' command='TBD' modeName={modeName}/>
         <ModeSettingsButton setting='3:6:1' command='TBD' modeName={modeName}/>
       </View>
