@@ -35,9 +35,9 @@ function ImmersiveMode() {
       <Text style={styles.title}>Immersive Mode</Text>
       <View style={styles.buttonsContainer}>
         {/* Use the reusable Button component */}
-        <ModeSettingsButton setting='PC Resolution' command='TBD' modeName={modeName}/>
+        <ModeSettingsButton setting='PC Resolution' command='SET OUT MD3 CDT 1280. 1280. 66\r\n' modeName={modeName}/>
         <ActivateButton text="Activate" command="SET OUT0 VCPM1 \r\n" onPress={setActiveMode} isActive={isActiveMode}/>
-        <ModeSettingsButton setting='Standard' command='TBD' modeName={modeName}/>
+        <ModeSettingsButton setting='Standard' command='SET OUT MD3 CDT 1280. 1280. 45\r\n' modeName={modeName}/>
       </View>
     </View>
   );

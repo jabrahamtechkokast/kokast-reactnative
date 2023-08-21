@@ -37,11 +37,11 @@ function CinematicMode(){
       <View style={styles.buttonsContainer}>
         {/* Use the reusable Button component */}
         {/* TODO: Create object that holds all the commands */}
-        <ModeSettingsButton setting='2:1' command='TBD' modeName={modeName}/>
-        <ModeSettingsButton setting='2:4:1' command='TBD' modeName={modeName}/>
+        <ModeSettingsButton setting='2:1' command='SET OUT MD4 CDT 220. 220. 122\r\n SET OUT VTD BEV 117. 117\r\n' modeName={modeName}/>
+        <ModeSettingsButton setting='2:4:1' command='SET OUT MD4 CDT 490. 490. 102\r\n SET OUT VTD BEV 280. 280\r\n' modeName={modeName}/>
         <ActivateButton text="Activate" command="SET OUT0 VCPM2 \r\n" onPress={setActiveMode} isActive={isActiveMode}/>
-        <ModeSettingsButton setting='2:76:1' command='TBD' modeName={modeName}/>
-        <ModeSettingsButton setting='3:6:1' command='TBD' modeName={modeName}/>
+        <ModeSettingsButton setting='2:76:1' command='SET OUT MD4 CDT 680. 680. 87\r\n SET OUT VTD BEV 360. 360\r\n' modeName={modeName}/>
+        <ModeSettingsButton setting='3:6:1' command='SET OUT MD4 CDT 1200. 1200. 50\r\n SET OUT VTD BEV 360. 360\r\n' modeName={modeName}/>
       </View>
     </View>
   );

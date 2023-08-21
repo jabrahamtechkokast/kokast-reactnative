@@ -3,6 +3,7 @@ import { CinematicModeSetting, ImmersiveModeSetting, SelectSettingAction, Select
 import { OutputGlobalStateContext } from "../../../store/OutputContexts";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import React from "react";
+import sendTelnetCommand from "../../telnet";
 
 export type ModeSettingsButtonProps = {
     setting: CinematicModeSetting | ImmersiveModeSetting,
@@ -30,6 +31,7 @@ export default function ModeSettingsButton({setting, command, modeName}: ModeSet
         outputDispatch(dispatchAction);
 
         // TODO: fire some event: e.g. fireCommand(command)
+        sendTelnetCommand(command);
     }
 
     return (
