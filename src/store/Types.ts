@@ -13,6 +13,10 @@ export type InputData = {
     imageName: ImageName,
 };
 
+export type hipCodeData = {
+    hipCode: string | undefined,
+};
+
 export type OutputData = {
     imageName: ImageName,
     background: string,

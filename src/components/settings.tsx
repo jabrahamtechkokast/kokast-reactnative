@@ -1,64 +1,40 @@
 import React, { useState } from 'react';
 import { TouchableOpacity, Image, StyleSheet, View, Modal, Text, Button, Linking, Dimensions, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native';
-
+import GenericDataStorage from '../store/GenericDataStorage';
 
 const { width, height } = Dimensions.get('window');
 const boxWidth = width;
 const boxHeight = height / 2.6;
 
-const isValidIP = (ip: string) => {
-  const ipAddressPattern = /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/;
-  return ipAddressPattern.test(ip);
-};
-
 export const Settings = () => {
+  const { data, updateData } = GenericDataStorage({
+    dataKey: "HipKey",
+    initialData: {
+      hipCode: ""
+    }
+  });
+
   const [modalVisible, setModalVisible] = useState(false);
-  const [hipCode, setHipCode] = useState('192.168.1.100');
-  const [editedHipCode, setEditedHipCode] = useState(hipCode);
+  const [editedHipCode, setEditedHipCode] = useState(data.hipCode);
   const [isEditing, setIsEditing] = useState(false);
+
+  const isValidIP = (ip:string) => /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/.test(ip);
 
   const handleSaveHipCode = () => {
     if (!isValidIP(editedHipCode)) {
       console.log('Invalid IP address');
       return;
     }
-
-    // Add your implementation to save the HIP code to storage here
     console.log('Saving HIP code:', editedHipCode);
-    setHipCode(editedHipCode); // Update the actual HIP code with the edited value
+    updateData({ hipCode: editedHipCode });
     setIsEditing(false);
     setModalVisible(false);
   };
 
   const handleCloseModal = () => {
-    setEditedHipCode(hipCode); // Reset the edited value to the original HIP code
+    setEditedHipCode(data.hipCode);
     setIsEditing(false);
     setModalVisible(false);
-  };
-
-  const handleReboot = async () => {
-    // Perform the fetch command to reboot the Kokast Box
-    console.log('Rebooting Kokast Box...');
-    // Replace the URL with your API endpoint for rebooting the Kokast Box
-    // Example: await fetch('https://api.example.com/reboot', { method: 'POST' });
-  };
-
-  const handleLogout = () => {
-    // Perform the logout action to turn off the app
-    console.log('Logging out...');
-    // Add your logout logic here
-  };
-
-  const handleOpenTermsAndConditions = () => {
-    // Open the Terms & Conditions website in the device's default browser
-    Linking.openURL('https://www.example.com/terms-and-conditions');
-  };
-
-  const handleBlur = () => {
-    // Save the edited HIP code when the input field loses focus
-    if (isEditing) {
-      handleSaveHipCode();
-    }
   };
 
   return (
@@ -89,14 +65,14 @@ export const Settings = () => {
             <View style={styles.hipCodeContainer}>
               <Text style={styles.hipCodeTitle}>HIP Code:</Text>
               {!isEditing ? (
-                <Text style={[styles.hipCodeText, { color: '#fff' }]}>{hipCode}</Text>
+                <Text style={styles.hipCodeText}>{data.hipCode}</Text>
               ) : (
                 <TextInput
-                  style={[styles.hipCodeInput, { color: '#fff' }]}
+                  style={styles.hipCodeInput}
                   value={editedHipCode}
                   onChangeText={setEditedHipCode}
                   autoFocus
-                  onBlur={handleBlur} // Save the edited HIP code when the input field loses focus
+                  onBlur={handleSaveHipCode}
                 />
               )}
             </View>
@@ -105,9 +81,7 @@ export const Settings = () => {
             ) : (
               <Button title="Cancel" onPress={() => setIsEditing(false)} />
             )}
-            <Button title="Reboot Kokast Box" onPress={handleReboot} />
-            <Button title="Terms & Conditions" onPress={handleOpenTermsAndConditions} />
-            <Button title="Logout" onPress={handleLogout} />
+            <Button title="Terms & Conditions" onPress={() => Linking.openURL('https://www.ko-kast.com/terms-of-service')} />
           </View>
         </TouchableWithoutFeedback>
       </Modal>
@@ -118,9 +92,8 @@ export const Settings = () => {
 const styles = StyleSheet.create({
   settingsContainer: {
     position: 'absolute',
-    top: 8, // Adjust this value to set the gap from the top edge
-    left: 10, // Adjust this value to set the gap from the left edge
-    flex:1,
+    top: 8,
+    left: 10,
   },
   settingsImage: {
     width: boxWidth / 7.5,
@@ -136,7 +109,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 20,
-    color: '#fff', // Set text color to white
+    color: '#fff',
   },
   hipCodeContainer: {
     flexDirection: 'row',
@@ -150,16 +123,16 @@ const styles = StyleSheet.create({
   hipCodeTitle: {
     fontSize: 16,
     marginRight: 10,
-    color: '#fff', // Set text color to white
+    color: '#fff',
   },
   hipCodeText: {
     fontSize: 16,
-    color: '#fff', // Set text color to white
+    color: '#fff',
   },
   hipCodeInput: {
     fontSize: 16,
     flex: 1,
-    color: '#fff', // Set text color to white
+    color: '#fff',
   },
   closeButton: {
     position: 'absolute',

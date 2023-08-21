@@ -18,7 +18,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { GetInitialOutputState, GlobalOutputState, outputGlobalStateReducer } from './src/store/Types';
 import { OutputGlobalStateContext } from './src/store/OutputContexts';
 import SplashScreen from 'react-native-splash-screen';
-import GenericDataStorage from './src/store/GenericDataStorage';
 
 const App = () => {
   const [inputPageNo, setInputPageNo] = useState(0);
