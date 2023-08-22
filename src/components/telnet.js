@@ -21,6 +21,7 @@ export  default async function sendTelnetCommand(cmd) {
                 // Send the command
                 console.log("Sending command:", cmd);
                 client.write(cmd);
+                client.write("\r\n");
                 client.destroy(); // Close the connection after sending
             });
         
