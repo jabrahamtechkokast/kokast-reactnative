@@ -18,8 +18,11 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { GetInitialOutputState, GlobalOutputState, outputGlobalStateReducer } from './src/store/Types';
 import { OutputGlobalStateContext } from './src/store/OutputContexts';
 import SplashScreen from 'react-native-splash-screen';
+import Orientation from 'react-native-orientation';
 
 const App = () => {
+
+  Orientation.lockToLandscape();
   const [inputPageNo, setInputPageNo] = useState(0);
   const {width, height} = Dimensions.get('window');
   const [outputPageNo, setoutputPageNo] = useState(0);

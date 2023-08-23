@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TouchableOpacity, Image, StyleSheet, View, Modal, Text, Button, Linking, Dimensions, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import GenericDataStorage from '../store/GenericDataStorage';
+import sendTelnetCommand from './telnet';
 
 const { width, height } = Dimensions.get('window');
 const boxWidth = width;
 const boxHeight = height / 2.6;
+
 
 export const Settings = () => {
   const { data, updateData } = GenericDataStorage({
@@ -17,6 +19,14 @@ export const Settings = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [editedHipCode, setEditedHipCode] = useState(data.hipCode);
   const [isEditing, setIsEditing] = useState(false);
+  const [isDataLoaded, setIsDataLoaded] = useState(false); // New state variable
+
+  useEffect(() => {
+    if (data.hipCode && !isDataLoaded) {
+      setEditedHipCode(data.hipCode);
+      setIsDataLoaded(true);
+    }
+  }, [data.hipCode]);
 
   const isValidIP = (ip:string) => /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/.test(ip);
 
@@ -81,6 +91,7 @@ export const Settings = () => {
             ) : (
               <Button title="Cancel" onPress={() => setIsEditing(false)} />
             )}
+            <Button title="Reboot Matrix Box" onPress={() => sendTelnetCommand("SET RBT \r\n")} />
             <Button title="Terms & Conditions" onPress={() => Linking.openURL('https://www.ko-kast.com/terms-of-service')} />
           </View>
         </TouchableWithoutFeedback>
