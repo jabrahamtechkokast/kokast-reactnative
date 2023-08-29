@@ -71,17 +71,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    fontSize: 12,
+    fontSize: 40,
     fontWeight: 'bold',
     color: '#fff',
     marginBottom: 10,
     marginTop: 5,
+    top:20,
   },
   buttonsContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 20,
+    top:20,
   },
   button: {
     paddingHorizontal: 20,

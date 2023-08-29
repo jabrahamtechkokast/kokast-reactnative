@@ -22,6 +22,7 @@
     "react-native-splash-screen": "^3.3.0",
     "react-native-tcp-socket": "^6.0.6",
     "react-native-websocket": "^1.0.2",
+    "react-navigation": "^4.4.4",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.4.2"
   },

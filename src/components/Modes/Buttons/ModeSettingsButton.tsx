@@ -47,7 +47,7 @@ export default function ModeSettingsButton({setting, command, modeName}: ModeSet
 
 const styles = StyleSheet.create({
     button: {
-        paddingHorizontal: 20,
+        paddingHorizontal: 40,
         paddingVertical: 10,
         backgroundColor: '#051D5A', // Replace with your desired button background color
         borderRadius: 8,
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#0C4502', // Replace with your desired active button background color
     },
     buttonText: {
-        fontSize: 8,
+        fontSize: 20,
         fontWeight: 'bold',
         color: '#fff',
     },

@@ -38,9 +38,11 @@ const App = () => {
     
 }, []);
 
+
   return (
+    <SafeAreaView style={{flex: 1}}>
     <OutputGlobalStateContext.Provider value={{globalOutputState, outputDispatch}}>
-    <SafeAreaView edges={['top', 'left', 'right']} style={{flex: 1}}>
+    
       <GestureHandlerRootView style={{ flex: 1}}>
       {
         <View style={styles.Container}>
@@ -73,8 +75,9 @@ const App = () => {
         </View>
       }
       </GestureHandlerRootView>
-    </SafeAreaView>
+    
     </OutputGlobalStateContext.Provider>
+    </SafeAreaView>
   );
 };
 

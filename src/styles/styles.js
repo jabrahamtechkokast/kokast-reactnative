@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
     },
     box: {
         width: boxWidth,
-        maxheight: boxHeight,
+        maxheight: boxHeight*1.2,
         backgroundColor: 'rgba(128, 128, 128, 0.31)',
         alignItems: "center",
         justifyContent: 'center',
@@ -48,6 +48,7 @@ export const styles = StyleSheet.create({
     inputtext: {
       color: 'white',
       fontWeight: 'bold',
+      fontSize: 20,
       position: 'absolute',
       top: 7,
       left:37,
@@ -55,9 +56,11 @@ export const styles = StyleSheet.create({
     headerContainer:{
       width: boxWidth,
       height:boxHeight/4,
+      top:20,
     },
     modeContainer:{
       width: boxWidth,
+      height:boxHeight *1.5,
       alignItems: "center",
       justifyContent: 'space-between',
       flexDirection: 'row',

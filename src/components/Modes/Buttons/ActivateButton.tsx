@@ -15,8 +15,8 @@ interface ActivateButtonProps {
  export default function ActivateButton({ text, command, isActive, onPress }: ActivateButtonProps){
     
     const handlePress = () => {
-      sendTelnetCommand(command);
       onPress && onPress();
+      sendTelnetCommand(command);
     }
     
     return (
@@ -31,7 +31,7 @@ interface ActivateButtonProps {
 
 const styles = StyleSheet.create({
     button: {
-        paddingHorizontal: 20,
+        paddingHorizontal: 70,
         paddingVertical: 10,
         backgroundColor: '#051D5A', // Replace with your desired button background color
         borderRadius: 8,
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#0C4502', // Replace with your desired active button background color
       },
       buttonText: {
-        fontSize: 8,
+        fontSize: 20,
         fontWeight: 'bold',
         color: '#fff',
       },

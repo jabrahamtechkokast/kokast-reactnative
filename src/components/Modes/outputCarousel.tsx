@@ -73,8 +73,8 @@ const styles = StyleSheet.create({
     opacity: 0,
   },
   button: {
-    width: 20,
-    height: 20,
+    width: 25,
+    height: 70,
     tintColor: '#fff', // Replace with your desired button color
   },
   outputContainer: {

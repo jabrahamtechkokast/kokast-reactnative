@@ -13,7 +13,8 @@ export  default async function sendTelnetCommand(cmd) {
 
         if (hipCode) {
             // ... rest of the function
-            console.log(hipCode);
+            console.log(cmd);
+
             //const HipCode = data.hipCode
               
             // Create a new socket connection

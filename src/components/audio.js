@@ -129,12 +129,13 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0, 0, 0, 0.8)",
     padding: 35,
     alignItems: "center",
+    top: 100,
   },
   modalText: {
     color: 'white',
     marginBottom: 15,
     textAlign: "center",
-    fontSize: 24
+    fontSize: 60
   },
   closeButton: {
     position: 'absolute',
@@ -146,7 +147,7 @@ const styles = StyleSheet.create({
   },
   closeButtonText: {
     color: 'black',
-    fontSize: 16,
+    fontSize: 32,
   },
   buttonContainer: {
     flexDirection: 'row',
@@ -170,12 +171,14 @@ const styles = StyleSheet.create({
   },
   commandButtonText: {
     color: 'white',
+    fontSize:40,
   },
   dropdownContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '100%',
-    marginTop: 20
+    marginTop: 20,
+    height:400,
   },
   dropdown: {
     alignItems: 'center'
@@ -183,11 +186,11 @@ const styles = StyleSheet.create({
   dropdownLabel: {
     color: 'white',
     marginBottom: 5,
-    fontSize: 18
+    fontSize: 35
   },
   pickerStyle: {
-    height: 40,
-    width: 130,
+    height: 60,
+    width: 200,
     backgroundColor: 'rgba(0, 0, 0, 0.8)',
     borderColor: 'gray',
     borderWidth: 1,
@@ -211,8 +214,9 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   audioImage: {
-    width: '200%',
-    height: '200%',
+    width: '110%',
+    height: '110%',
+    top:15,
   },
 });
 

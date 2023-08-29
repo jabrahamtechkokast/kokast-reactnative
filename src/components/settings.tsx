@@ -109,15 +109,17 @@ const styles = StyleSheet.create({
   settingsImage: {
     width: boxWidth / 7.5,
     height: boxHeight / 8,
+    top:15,
   },
   modalContainer: {
     flex: 1,
+    top:20,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'rgba(0, 0, 0, 0.8)',
   },
   settingsTitle: {
-    fontSize: 20,
+    fontSize: 60,
     fontWeight: 'bold',
     marginBottom: 20,
     color: '#fff',
@@ -132,16 +134,16 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   hipCodeTitle: {
-    fontSize: 16,
+    fontSize: 30,
     marginRight: 10,
     color: '#fff',
   },
   hipCodeText: {
-    fontSize: 16,
+    fontSize: 30,
     color: '#fff',
   },
   hipCodeInput: {
-    fontSize: 16,
+    fontSize: 30,
     flex: 1,
     color: '#fff',
   },
@@ -154,7 +156,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   closeButtonLabel: {
-    fontSize: 16,
+    fontSize: 32,
     color: '#000',
   },
 });

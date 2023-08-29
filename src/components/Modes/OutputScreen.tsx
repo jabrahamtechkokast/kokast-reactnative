@@ -8,7 +8,7 @@ import sendTelnetCommand from "../telnet";
 
 const { width, height } = Dimensions.get('window');
 const screenHeight = height * 0.29;
-const imageSize = 45; // You can adjust the size of the image here
+const imageSize = 90; // You can adjust the size of the image here
 
 type OutputScreenProps = {
   Outputwidth: number,
@@ -55,7 +55,7 @@ export function OutputScreen({ Outputwidth, modeName, receptive }: OutputScreenP
       }}
       style={{
         width: Outputwidth,
-        height: screenHeight,
+        height: screenHeight *0.9,
         backgroundColor: background, // Semi-transparent white
         borderRadius: 10,
         justifyContent: 'center',

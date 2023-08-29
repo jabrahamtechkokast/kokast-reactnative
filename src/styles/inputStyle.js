@@ -6,8 +6,8 @@ const boxHeight = height/4
 
 export const styles = StyleSheet.create({
     box: {
-      width: boxWidth * 0.90,
-      height: boxHeight,
+      width: boxWidth * 0.95,
+      height: boxHeight *0.8,
       backgroundColor: 'black',
       borderRadius: 10,
       justifyContent: 'center',
@@ -16,8 +16,8 @@ export const styles = StyleSheet.create({
       //paddingRight: 16, // Move these lines here
     },
     image: {
-      width: 35.97,
-      height: 35,
+      width: 65.97,
+      height: 65,
     },
     selectionButton: {
       top: 5,
@@ -27,8 +27,8 @@ export const styles = StyleSheet.create({
       position: 'absolute',
     },
     selectionButtonImage: {
-      width: 16,
-      height: 16,
+      width: 32,
+      height: 32,
     },
     modalContainer: {
       flex: 1,
@@ -50,7 +50,7 @@ export const styles = StyleSheet.create({
       alignItems: "center",
     },
     nameText: {
-      fontSize: 8,
+      fontSize: 16,
       fontWeight: "bold",
       color:'white',
     },
